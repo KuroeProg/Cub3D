@@ -42,11 +42,16 @@ typedef struct s_mlx
 } t_mlx;
 
 /* parsing */
+/* check_map.c */
+int	malloc_function(t_data *data);
+int	get_map_info(char *file_path, t_data *data);
+
 
 
 /* algo */
 
 
-
+/* utils */
+int	ft_strlen(char *str);
 
 #endif // CUB3D_H

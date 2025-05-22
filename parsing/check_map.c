@@ -60,14 +60,33 @@ int ft_parsing(t_data *data)
 	{
 		while (i < data->map_width)
 		{
-			if (map[j][i] == 0 || (map[j][i] >= 9 || map[j][i] <= 13))
+			if (data->map[j][i] == 0 || (data->map[j][i] >= 9 || data->map[j][i] <= 13))
 				i++;
-			else if (if (map[j][i] == 1 && /*contour de map == 0 or 1 or whitespace or NULL*/))
+			else if (data->map[j][i] == 0)
+			{
+				if (check_borders(data, i, j) == 0)
+					return (printf("parsing error\n", 0));
 				i++;
+			}
 			else
 				return (printf("parsing error\n", 0));
 		}
 		j++;
 	}
 	// et si tab[0][sizeof(line[0])] == 1 or tab[0][sizeof(EOF)] == 1
+}
+
+int check_borders(t_data *data, int i, int j)
+{
+    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
+        return (0);
+    if (CHECK_MAP_TOP)
+        return (0);
+    if (CHECK_MAP_DOWN)
+        return (0);
+    if (CHECK_MAP_LEFT)
+        return (0);
+    if (CHECK_MAP_RIGHT)
+        return (0);
+    return (1);
 }

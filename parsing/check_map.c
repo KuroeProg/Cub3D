@@ -10,7 +10,7 @@ int	malloc_function(t_data *data)
 		return (perror("malloc"), 0);
 	while (i < data->map->height)
 	{
-		data->map[i] = malloc(sizeof(char) * (data->map->width + 1))
+		data->map[i] = malloc(sizeof(char) * (data->map->width + 1));
 		if (!data->map[i])
 			return (perror("malloc"), 0);
 		i++;
@@ -49,31 +49,30 @@ int	get_map_info(char *file_path, t_data *data)
 
 int ft_parsing(t_data *data)
 {
-	// verifier si a la fin et au debut de la ligne, il y a un 1 ou whitespace
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	// check si les rebords sont soit des 0 soit des 1/whitespace
 	while (j < data->map_height)
 	{
 		while (i < data->map_width)
 		{
-			if (data->map[j][i] == 0 || (data->map[j][i] >= 9 || data->map[j][i] <= 13))
+			if (data->map[j][i] == '0' || (data->map[j][i] >= 9 && data->map[j][i] <= 13))
 				i++;
 			else if (data->map[j][i] == 0)
 			{
 				if (check_borders(data, i, j) == 0)
-					return (printf("parsing error\n", 0));
+					return (printf("parsing error\n"), 0);
 				i++;
 			}
-			else
-				return (printf("parsing error\n", 0));
+			else if (data->map[j][i] != '1' && data->map[j][i] != ' ' &&
+					data->map[j][i] != 'N' && data->map[j][i] != 'E' &&
+					data->map[j][i] != 'S' && data->map[j][i] != 'W')
+				return (printf("parsing error\n"), 0);
 		}
 		j++;
 	}
-	// et si tab[0][sizeof(line[0])] == 1 or tab[0][sizeof(EOF)] == 1
 }
 
 int check_borders(t_data *data, int i, int j)

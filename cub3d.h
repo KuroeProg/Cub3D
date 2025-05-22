@@ -66,12 +66,14 @@ typedef struct s_mlx
 int	malloc_function(t_data *data);
 int	get_map_info(char *file_path, t_data *data);
 
+/*init_data*/
+int init_data(t_data *data, char *file_path);
+
 
 
 /* algo */
 
 
 /* utils */
-int	ft_strlen(char *str);
 
 #endif // CUB3D_H

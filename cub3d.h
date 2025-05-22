@@ -7,6 +7,7 @@
 #include <string.h> //strerror()
 #include <stdlib.h> //malloc(), free(), exit();
 #include <math.h> //maths functions (-lm compilation flag)
+#include ".minilibx-linux/mlx.h" // (-lmlx, lX11, -lXext, -lm for compilation)
 
 #define NO [text]
 #define SO [text]
@@ -35,7 +36,6 @@
     data->map[j][i + 1] != 'S' && data->map[j][i + 1] != 'W' && \
     data->map[j][i + 1] != ' '
 
-#include ".minilibx-linux" // (-lmlx, lX11, -lXext, -lm for compilation)
 
 typedef struct s_data
 {
@@ -45,7 +45,7 @@ typedef struct s_data
 	int		dirX; //horizontal
 	int		dirY; //vertical
 	int		PlaneY;
-	int		PlaneY;
+	int		PlaneX;
 	int		i;
 	int		j;
 } t_data;
@@ -65,6 +65,8 @@ typedef struct s_mlx
 /* check_map.c */
 int	malloc_function(t_data *data);
 int	get_map_info(char *file_path, t_data *data);
+int ft_parsing(t_data *data);
+int check_borders(t_data *data, int i, int j);
 
 /*init_data*/
 int init_data(t_data *data, char *file_path);

@@ -1,16 +1,17 @@
 #include "../cub3d.h"
+#include "../.minilibx-linux/mlx.h"
 
 int	malloc_function(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->map = malloc(sizeof(char *) * (data->map->height + 1));
+	data->map = malloc(sizeof(char *) * (data->map_height + 1));
 	if (!data->map)
 		return (perror("malloc"), 0);
-	while (i < data->map->height)
+	while (i < data->map_height)
 	{
-		data->map[i] = malloc(sizeof(char) * (data->map->width + 1));
+		data->map[i] = malloc(sizeof(char) * (data->map_width + 1));
 		if (!data->map[i])
 			return (perror("malloc"), 0);
 		i++;
@@ -21,13 +22,13 @@ int	malloc_function(t_data *data)
 
 int	get_map_info(char *file_path, t_data *data) 
 {
-	char	line;
+	char	*line;
 	int		fd;
 
 	fd = open(file_path, O_RDONLY);
 	if (!fd || fd < 0)
 		return (0);
-	line = get_next_line(fd);
+	line = get_next_line(fd); //implicit declaration
 	if (line == NULL)
 		return (0);
 	while (line != NULL)
@@ -42,7 +43,7 @@ int	get_map_info(char *file_path, t_data *data)
 	printf("debug get_map_info : map_height : %d, map_width : %d\n", data->map_height, data->map_width);
 	if (!malloc_function(data))
 		return (0);
-	if (!ft_parsing)
+	if (!ft_parsing(data))
 		return (0);
 	return (1); //if everything is good.
 }
@@ -58,9 +59,9 @@ int ft_parsing(t_data *data)
 	{
 		while (i < data->map_width)
 		{
-			if (data->map[j][i] == '0' || (data->map[j][i] >= 9 && data->map[j][i] <= 13))
+			if (data->map[j][i] >= 9 && data->map[j][i] <= 13)
 				i++;
-			else if (data->map[j][i] == 0)
+			else if (data->map[j][i] == '0')
 			{
 				if (check_borders(data, i, j) == 0)
 					return (printf("parsing error\n"), 0);
@@ -73,11 +74,13 @@ int ft_parsing(t_data *data)
 		}
 		j++;
 	}
+	return (1);
 }
 
 int check_borders(t_data *data, int i, int j)
 {
-    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
+    if (i == 0 || j == 0 || i == data->map_width - 1 ||
+		j == data->map_height - 1)
         return (0);
     if (CHECK_MAP_TOP)
         return (0);

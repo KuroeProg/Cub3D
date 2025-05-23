@@ -41,6 +41,26 @@ int	malloc_function(t_data *data)
 	return (1);
 }
 
+int	ft_check_header(char *line)
+{
+	int	i;
+	int	check;
+
+	check = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (!(line[i] == '1' || (data->map[j][i] >= 9 && data->map[j][i] <= 13)))
+			return (0);
+		else if (line[i] == '1')
+			check = 1;
+		i++;
+	}
+	if (check == 0)
+		return (0);
+	return (1);
+}
+
 int	get_map_info(char *file_path, t_data *data) 
 {
 	char	*line;
@@ -52,6 +72,12 @@ int	get_map_info(char *file_path, t_data *data)
 	line = get_next_line(fd); //implicit declaration
 	if (line == NULL)
 		return (0);
+	while (line != NULL || !ft_check_header(line))
+	{
+		// fill_info(); remplir les infos de la map (exemple : NO)
+		free(line);
+		line = get_next_line(fd);
+	}
 	while (line != NULL)
 	{
 		data->map_height++;

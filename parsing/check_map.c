@@ -1,5 +1,26 @@
 #include "../cub3d.h"
-#include "../.minilibx-linux/mlx.h"
+// #include "../.minilibx-linux/mlx.h"
+
+void	ft_flood_fill(char **map, t_data *data, int i, int j)
+{
+	if (i < 0 || j < 0 || i >= data->map_width || j >= data->map_height)
+		return ;
+	if (map[j][i] == '1' || map[j][i] == 'F')
+		return ;
+	if (map[j][i] == '0' || map[j][i] == 'W' || map[j][i] == 'N' ||
+		|| map[j][i] == 'S' || map[j][i] == 'E')
+		map[j][i] = 'F';
+	else
+	{
+		// ft_check_free2(i, j, game, map);
+		// ft_error(8, game);
+		return ;
+	}
+	ft_flood_fill(map, game, i + 1, j);
+	ft_flood_fill(map, game, i - 1, j);
+	ft_flood_fill(map, game, i, j + 1);
+	ft_flood_fill(map, game, i, j - 1);
+}
 
 int	malloc_function(t_data *data)
 {
@@ -74,6 +95,8 @@ int ft_parsing(t_data *data)
 		}
 		j++;
 	}
+	if (!flood_fill(data->map, data, i, j))
+		return (printf("parsing error\n"), 0);
 	return (1);
 }
 

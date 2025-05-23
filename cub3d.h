@@ -16,25 +16,21 @@
 #define C  [int] //couleur ciel
 #define F  [int] //couleur plafond
 #define CHECK_MAP_TOP \
-    data->map[j - 1][i] != '0' && data->map[j - 1][i] != '1' && \
-    data->map[j - 1][i] != 'N' && data->map[j - 1][i] != 'E' && \
-    data->map[j - 1][i] != 'S' && data->map[j - 1][i] != 'W' && \
-    data->map[j - 1][i] != ' '
+    data->map[j - 1][i] == '0' && data->map[j - 1][i] == '1' && \
+    data->map[j - 1][i] == 'N' && data->map[j - 1][i] == 'E' && \
+    data->map[j - 1][i] == 'S' && data->map[j - 1][i] == 'W'
 #define CHECK_MAP_DOWN \
-    data->map[j + 1][i] != '0' && data->map[j + 1][i] != '1' && \
-    data->map[j + 1][i] != 'N' && data->map[j + 1][i] != 'E' && \
-    data->map[j + 1][i] != 'S' && data->map[j + 1][i] != 'W' && \
-    data->map[j + 1][i] != ' '
+    data->map[j + 1][i] == '0' && data->map[j + 1][i] == '1' && \
+    data->map[j + 1][i] == 'N' && data->map[j + 1][i] == 'E' && \
+    data->map[j + 1][i] == 'S' && data->map[j + 1][i] == 'W'
 #define CHECK_MAP_LEFT \
-    data->map[j][i - 1] != '0' && data->map[j][i - 1] != '1' && \
-    data->map[j][i - 1] != 'N' && data->map[j][i - 1] != 'E' && \
-    data->map[j][i - 1] != 'S' && data->map[j][i - 1] != 'W' && \
-    data->map[j][i - 1] != ' '
+    data->map[j][i - 1] == '0' && data->map[j][i - 1] == '1' && \
+    data->map[j][i - 1] == 'N' && data->map[j][i - 1] == 'E' && \
+    data->map[j][i - 1] == 'S' && data->map[j][i - 1] == 'W'
 #define CHECK_MAP_RIGHT \
-    data->map[j][i + 1] != '0' && data->map[j][i + 1] != '1' && \
-    data->map[j][i + 1] != 'N' && data->map[j][i + 1] != 'E' && \
-    data->map[j][i + 1] != 'S' && data->map[j][i + 1] != 'W' && \
-    data->map[j][i + 1] != ' '
+    data->map[j][i + 1] == '0' && data->map[j][i + 1] == '1' && \
+    data->map[j][i + 1] == 'N' && data->map[j][i + 1] == 'E' && \
+    data->map[j][i + 1] == 'S' && data->map[j][i + 1] == 'W'
 
 
 typedef struct s_data

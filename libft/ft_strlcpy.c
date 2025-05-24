@@ -3,31 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 23:15:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/12 11:53:47 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/05 17:36:50 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/08 14:23:30 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dsize)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	srclen;
 
 	i = 0;
-	srclen = 0;
-	while (src[srclen])
-		srclen++;
-	if (dsize == 0)
-		return (srclen);
-	while (src[i] && i < dsize - 1)
+	if (size == 0)
+		return (ft_strlen(src));
+	while (i < size - 1 && src[i])
 	{
-		dst[i] = src[i];
+		dest[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (srclen);
+	dest[i] = '\0';
+	return (ft_strlen(src));
 }
+/*
+int	main(void)
+{
+	const char	*src = "HELLO";
+	char		dest[6];
+	ft_strlcpy(dest, src, 6);
+	printf("%s", dest);
+	return (0);
+}*/

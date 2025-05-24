@@ -1,6 +1,8 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
+#include "./libft/libft.h"
+#include "./libft/get_next_line.h"
 #include <fcntl.h> //open()
 #include <unistd.h> //close(), read(), write()
 #include <stdio.h> //printf(), perror()
@@ -59,13 +61,13 @@ typedef struct s_mlx
 
 /* parsing */
 /* check_map.c */
-int	malloc_function(t_data *data);
-int	get_map_info(char *file_path, t_data *data);
+int	malloc_function(t_data *data, char *file_path);
+int	get_map_info(t_data *data,char *file_path);
 int ft_parsing(t_data *data);
 int check_borders(t_data *data, int i, int j);
 
 /*init_data*/
-int init_data(t_data *data, char *file_path);
+void init_data(t_data *data);
 
 
 
@@ -73,5 +75,5 @@ int init_data(t_data *data, char *file_path);
 
 
 /* utils */
-
+void	display_map(t_data *data);
 #endif // CUB3D_H

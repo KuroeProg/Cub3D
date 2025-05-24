@@ -3,60 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 18:38:19 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/21 22:01:54 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/09 19:02:08 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/11 19:19:27 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "libft.h"
 
-static int	ft_len(int n)
+static void	ft_convert(long int n, char *s, size_t len)
 {
-	int	i;
-
-	i = 0;
+	s[len] = '\0';
 	if (n == 0)
-		return (1);
-	if (n < 0)
-		i++;
-	while (n != 0)
+		s[0] = '0';
+	while (len > 0)
 	{
-		n = n / 10;
-		i++;
+		s[len - 1] = n % 10 + 48;
+		n /= 10;
+		len--;
 	}
-	return (i);
 }
 
-static char	*ft_recursive(int nb, char *str)
+static size_t	ft_len(int n)
 {
-	if (nb >= 10)
-		str = ft_recursive(nb / 10, str);
-	*str = (nb % 10) + '0';
-	return (str + 1);
+	size_t	len;
+
+	len = 1;
+	if (n < 0)
+		len++;
+	while (n > 9 || n < -9)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		size;
+	size_t	len;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	size = ft_len(n);
-	str = (char *)malloc(sizeof(char) * (size + 1));
+	str = NULL;
+	len = ft_len(n);
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	if (n < 0)
 	{
 		str[0] = '-';
-		ft_recursive(-n, str + 1);
+		len--;
+		ft_convert(-((long int)n), &str[1], len);
 	}
-	else if (n == 0)
-		str[0] = '0';
 	else
-		ft_recursive(n, str);
-	str[size] = '\0';
+		ft_convert(n, str, len);
 	return (str);
 }
+/*
+int	main(void)
+{
+	int		nb;
+	char	*str;
+
+	nb = -2147483648;
+	str = ft_itoa(nb);
+	printf("%s", str);
+	free(str);
+	return (0);
+}*/

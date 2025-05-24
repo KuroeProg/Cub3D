@@ -3,26 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 16:48:41 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/11/07 13:51:35 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/06 17:52:08 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/14 16:38:59 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_calloc(size_t num, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*tab;
-	size_t	total;
+	size_t	i;
+	void	*ptr;
 
-	total = num * size;
-	if (num != 0 && total / num != size)
+	i = 0;
+	ptr = NULL;
+	if (nmemb * size > 2147483647 || nmemb == 0 || size == 0)
+	{
+		ptr = malloc(1);
+		((unsigned char *)ptr)[0] = '\0';
+		return (ptr);
+	}
+	ptr = malloc(nmemb * size);
+	if (!ptr)
 		return (NULL);
-	tab = malloc(num * size);
-	if (tab == NULL)
-		return (tab);
-	ft_bzero(tab, num * size);
-	return (tab);
+	while (((unsigned char *)ptr)[i])
+	{
+		((unsigned char *)ptr)[i] = '\0';
+		i++;
+	}
+	return (ptr);
 }
+/*
+int	main(void)
+{
+	int	*tab;
+	
+	tab = ft_calloc(4, sizeof(int));
+	free(tab);
+	return (0);
+}*/

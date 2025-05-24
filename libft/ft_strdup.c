@@ -3,34 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 16:04:58 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/13 16:05:07 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/06 18:20:43 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/08 15:39:43 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *s)
 {
-	char	*dest;
-	size_t	size;
 	size_t	i;
+	size_t	len;
+	char	*ptr;
 
 	i = 0;
-	size = ft_strlen(s);
-	dest = malloc(sizeof(char) * (size + 1));
-	if (dest == NULL)
-		return (dest);
-	else
+	len = ft_strlen(s);
+	ptr = malloc(sizeof(char) * len + 1);
+	if (!ptr)
+		return (NULL);
+	while (i < len)
 	{
-		while (s[i])
-		{
-			dest[i] = s[i];
-			i++;
-		}
-		dest[i] = '\0';
+		ptr[i] = s[i];
+		i++;
 	}
-	return (dest);
+	ptr[i] = '\0';
+	return (ptr);
 }
+/*
+int	main(void)
+{
+	char	*src = "HELLO";
+	char	*dst;
+
+	dst = ft_strdup((const char *)src);
+	printf("%s", dst);
+	free(dst);
+	return (0);
+}*/

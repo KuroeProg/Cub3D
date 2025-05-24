@@ -3,34 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 15:07:26 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/13 15:39:07 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/06 16:17:54 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/11 20:00:42 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
-char	*ft_strnstr(const char *s1, const char *s2, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
-	size_t	y;
+	size_t	j;
 
 	i = 0;
-	y = 0;
-	if (s2[y] == '\0')
-		return (((char *)s1));
-	while (s1[i])
+	j = 0;
+	if (!little[j])
+		return ((char *)big);
+	while (big[i])
 	{
-		y = 0;
-		while ((s1[i + y] == s2[y] && s2[y] && i + y < len))
+		j = 0;
+		while (big[i] == little[j] && i < len)
 		{
-			y++;
-			if (s2[y] == '\0')
-				return (((char *)s1) + i);
+			i++;
+			j++;
+			if (!little[j])
+				return (&((char *)big)[i - j]);
 		}
+		i -= j;
 		i++;
 	}
 	return (NULL);
 }
+/*
+int	main(void)
+{
+	printf("%s", ft_strnstr("aaabcabcd","aabc", -1));
+	return (0);
+}*/

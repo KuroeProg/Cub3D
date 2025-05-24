@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 18:53:39 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/19 19:02:38 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/10 16:39:45 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/10 16:42:07 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
@@ -24,3 +25,10 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 	write(fd, "\n", 1);
 }
+/*
+int	main(void)
+{
+	char	*str= "Hello";
+	ft_putendl_fd(str, 1);
+	return (0);
+}*/

@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 14:44:47 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/15 14:26:24 by cfiachet         ###   ########.fr       */
+/*   Created: 2024/11/06 10:40:34 by tbahin            #+#    #+#             */
+/*   Updated: 2024/11/11 14:06:53 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	const unsigned char		*string1;
-	const unsigned char		*string2;
-	size_t					i;
+	size_t	i;
 
 	i = 0;
-	string1 = (const unsigned char *)s1;
-	string2 = (const unsigned char *)s2;
-	while (i < n)
-	{
-		if (string1[i] != string2[i])
-			return (string1[i] - string2[i]);
+	if (n == 0)
+		return (0);
+	while (i < n - 1 && ((unsigned char *)s1)[i] == ((unsigned char *)s2)[i])
 		i++;
-	}
-	return (0);
+	return ((int)(((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]));
 }
+/*
+int	main(int ac, char **av)
+{
+	if (ac != 3)
+	{
+		printf("ERROR");
+		return (0);
+	}
+	else
+		printf("%d", (memcmp((const void *)av[1], (const void *)av[2], 4)));
+	return (0);
+}*/

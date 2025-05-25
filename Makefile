@@ -6,7 +6,7 @@
 #    By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 16:04:41 by tbahin            #+#    #+#              #
-#    Updated: 2025/05/25 19:26:56 by tbahin           ###   ########.fr        #
+#    Updated: 2025/05/25 19:36:46 by tbahin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC = cc
 CFLAG = -Wall -Wextra -Werror -g
 
 SRCS =./srcs/parsing/check_map.c ./srcs/parsing/init_data.c ./srcs/display_2d.c \
-./srcs/main.c ./srcs/free_mlx.c
+./srcs/main.c ./srcs/free_mlx.c ./srcs/key.c
 
 OBJS = ${SRCS:.c=.o}
 

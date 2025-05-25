@@ -90,6 +90,7 @@ void	initialize_img(t_img *img);
 
 
 /* utils */
+int		handle_keypress(int keycode, void *param);
 void	display_map(t_data *data);
 int		close_program(void *param);
 

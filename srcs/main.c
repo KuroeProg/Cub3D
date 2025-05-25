@@ -30,6 +30,7 @@ int main(int argc, char **argv)
 	//affichage de la map en 2D avec la minilibx
 	data.mlx_window = mlx_new_window(data.mlx_connection,
 		data.map_width * 32, data.map_height * 32, "cub3d");
+	mlx_key_hook(data.mlx_window, handle_keypress, &data);
 	mlx_loop_hook(data.mlx_connection, render_frame, &data);
 	mlx_hook(data.mlx_window, 17, 0, close_program, &data);
 	mlx_loop(data.mlx_connection);

@@ -6,7 +6,7 @@
 #    By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 16:04:41 by tbahin            #+#    #+#              #
-#    Updated: 2025/05/24 16:30:52 by tbahin           ###   ########.fr        #
+#    Updated: 2025/05/25 18:55:38 by tbahin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INCLUDE = ./includes/
 CC = cc
 CFLAG = -Wall -Wextra -Werror -g
 
-SRCS =./parsing/check_map.c ./parsing/init_data.c main.c
+SRCS =./parsing/check_map.c ./parsing/init_data.c ./srcs/display_2d.c main.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -25,7 +25,8 @@ all : ${NAME}
 
 ${NAME} : $(OBJS)
 	make bonus -C ./libft
-	$(CC) $(CFLAG) -o $(NAME) $(OBJS) -L./libft -lft
+	make -C ./.minilibx-linux
+	$(CC) $(CFLAG) -o $(NAME) $(OBJS) -L./libft -L./.minilibx-linux -lm -lft -lmlx -lXext -lX11
 
 bonus: $(OBJSB)
 	make bonus -C ./libft
@@ -37,11 +38,11 @@ bonus: $(OBJSB)
 clean :
 	rm -f ${OBJS}
 	make clean -C ./libft
-
+	make clean -C ./.minilibx-linux
 fclean : clean
 	rm -f ${NAME}
 	make fclean -C ./libft
-
+	make clean -C ./.minilibx-linux
 re : fclean all
 
 .phony : all clean fclean re bonus

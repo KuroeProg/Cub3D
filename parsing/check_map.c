@@ -1,4 +1,5 @@
-#include "../cub3d.h"
+#include "../includes/cub3d.h"
+
 // #include "../.minilibx-linux/mlx.h"
 
 // void	ft_flood_fill(char **map, t_data *data, int i, int j)
@@ -29,9 +30,10 @@ void	display_map(t_data *data)
 	i = 0;
 	while (data->map[i])
 	{
-		printf("%s", data->map[i]);
+		ft_printf(1, "%s", data->map[i]);
 		i++;
 	}
+	ft_printf(1, "\n", data->map[i]);
 }
 
 void	ft_strcpy_cube(char *dest, char *src, int size)

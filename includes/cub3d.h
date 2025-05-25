@@ -81,19 +81,26 @@ int ft_parsing(t_data *data);
 int check_borders(t_data *data, int i, int j);
 
 /*init_data*/
-void init_data(t_data *data);
-
-
+void 	init_data(t_data *data);
+t_img	load_sprites(t_data *game);
+t_img	xpm_to_img(t_data *game, int width, int height);
+void	initialize_img(t_img *img);
 
 /* algo */
 
 
 /* utils */
 void	display_map(t_data *data);
+int		close_program(void *param);
+
+/* free */
+void	free_game(t_data *game);
+void	free_sprites(t_img *img, void *mlx_connection);
+void	free_map(char **map);
 
 /* display_2d */
 void	display_line(char *line, t_data *game, t_img *img, int j);
-void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
+// void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 
 #endif // CUB3D_H

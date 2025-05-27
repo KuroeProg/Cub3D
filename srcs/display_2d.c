@@ -1,5 +1,19 @@
 #include "../includes/cub3d.h"
 
+void	ft_movesprite(char *line, t_data *game, int j, t_img *img)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 'P')
+			mlx_put_image_to_window(game->mlx_connection, game->mlx_window,
+				img->img_player, i * 32, j * 32);
+		i++;
+	}
+}
+
 /* ********************************************************************
 ** This function will display the line of the map. By 'Line' we mean
 ** the horizontal line of the map. We loop until the end of the line.
@@ -62,10 +76,10 @@ int	render_frame(t_data *data)
 	while (data->map[j])
 	{
 		display_line(data->map[j], data, &data->img, j);
-		// ft_movesprite(data->map[j], data, j, &data->img);
+		ft_movesprite(data->map[j], data, j, &data->img);
 		j++;
 	}
-	// mlx_put_image_to_window(data->mlx_connection, data->mlx_window,
-	// 	data->img.img_player, data->player_x * 32, data->player_y * 32);
+	mlx_put_image_to_window(data->mlx_connection, data->mlx_window,
+		data->img.img_player, data->player_x * 32, data->player_y * 32);
 	return (0);
 }

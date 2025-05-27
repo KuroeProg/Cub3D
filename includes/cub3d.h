@@ -39,6 +39,8 @@ typedef struct s_img
 {
 	void	*img_path;
 	void	*img_wall;
+	void	*img_player;
+	void	*img_;
 }				t_img;
 
 typedef struct s_coordonnees
@@ -66,6 +68,8 @@ typedef struct s_data
 	char 	**map;
 	int		player_x;
 	int		player_y;
+	int		player_start_x;
+	int		player_start_y;
 	int		dirX; //horizontal
 	int		dirY; //vertical
 	int		PlaneY;
@@ -86,7 +90,7 @@ void 	init_data(t_data *data);
 t_img	load_sprites(t_data *game);
 t_img	xpm_to_img(t_data *game, int width, int height);
 void	initialize_img(t_img *img);
-
+void	initialize_player(t_data *game, int start_x, int start_y);
 /* algo */
 
 

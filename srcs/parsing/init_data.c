@@ -1,10 +1,18 @@
 #include "../../includes/cub3d.h"
 
+void	initialize_player(t_data *game, int start_x, int start_y)
+{
+	(void)start_x;
+	(void)start_y;
+	game->player_x = 0;
+	game->player_y = 0;
+}
+
 void	initialize_img(t_img *img)
 {
 	img->img_path = NULL;
 	img->img_wall = NULL;
-
+	img->img_player = NULL;
 }
 
 t_img	xpm_to_img(t_data *game, int width, int height)
@@ -13,6 +21,8 @@ t_img	xpm_to_img(t_data *game, int width, int height)
 			"sprites_cub3d/grass.xpm", &width, &height);
 	game->img.img_wall = mlx_xpm_file_to_image(game->mlx_connection,
 			"sprites_cub3d/water.xpm", &width, &height);
+	game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
+			"sprites_cub3d/player.xpm", &width, &height);
 	if (!game->img.img_path || !game->img.img_wall)
 		close_program(game);
 	return (game->img);

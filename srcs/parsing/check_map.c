@@ -26,14 +26,20 @@
 void	display_map(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (data->map[i])
 	{
-		ft_printf(1, "%s", data->map[i]);
+		j = 0;
+		while (data->map[i][j] && data->map[i][j] != '\n')
+		{
+			ft_printf(1, "%c", data->map[i][j]);
+			j++;
+		}
+		ft_printf(1, "\n");
 		i++;
 	}
-	ft_printf(1, "\n", data->map[i]);
 }
 
 void	ft_strcpy_cube(char *dest, char *src, int size)
@@ -142,8 +148,8 @@ int	get_map_info(t_data *data, char *file_path)
 	while (line != NULL)
 	{
 		data->map_height++;
-		if ((int)ft_strlen(line) > data->map_width)
-			data->map_width = ft_strlen(line);
+		if ((int)ft_strlen_n(line) > data->map_width)
+			data->map_width = (int)ft_strlen_n(line);
 		free(line);
 		line = get_next_line(fd);
 	}

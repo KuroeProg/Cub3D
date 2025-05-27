@@ -161,10 +161,10 @@ int ft_parsing(t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	while (j < data->map_height)
 	{
+		i = 0;
 		while (i < data->map_width)
 		{
 			if (data->map[j][i] >= 9 && data->map[j][i] <= 13)
@@ -188,19 +188,25 @@ int ft_parsing(t_data *data)
 	// 	return (printf("parsing error\n"), 0);
 	return (1);
 }
-
 int check_borders(t_data *data, int i, int j)
 {
-    if (i == 0 || j == 0 || i == data->map_width - 1 ||
-		j == data->map_height - 1)
+    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
         return (0);
-    if (CHECK_MAP_TOP)
+    if (data->map[j - 1][i] == ' ' || data->map[j - 1][i] == '\0')
         return (0);
-    if (CHECK_MAP_DOWN)
+    if (data->map[j + 1][i] == ' ' || data->map[j + 1][i] == '\0')
         return (0);
-    if (CHECK_MAP_LEFT)
+    if (data->map[j][i - 1] == ' ' || data->map[j][i - 1] == '\0')
         return (0);
-    if (CHECK_MAP_RIGHT)
+    if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
+        return (0);
+    if (!(CHECK_MAP_TOP))
+        return (0);
+    if (!(CHECK_MAP_DOWN))
+        return (0);
+    if (!(CHECK_MAP_LEFT))
+        return (0);
+    if (!(CHECK_MAP_RIGHT))
         return (0);
     return (1);
 }

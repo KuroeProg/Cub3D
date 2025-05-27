@@ -61,7 +61,7 @@ int	ft_check_header(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!(line[i] == '1' || line[i] == '0' || (line[i] >= 9 && line[i] <= 13)))
+		if (!(line[i] == '1' || line[i] == '0' || (line[i] >= 9 && line[i] <= 13) || line[i] == 32))
 			return (0);
 		else if (line[i] == '1')
 			check = 1;
@@ -165,20 +165,20 @@ int ft_parsing(t_data *data)
 	while (j < data->map_height)
 	{
 		i = 0;
-		while (i < data->map_width)
+		while (data->map[j][i] && i < data->map_width)
 		{
 			if (data->map[j][i] >= 9 && data->map[j][i] <= 13)
 				i++;
 			else if (data->map[j][i] == '0')
 			{
 				if (check_borders(data, i, j) == 0)
-					return (printf("parsing error3\n"), 0);
+					return (printf("parsing error 1\n"), 0);
 				i++;
 			}
 			else if (data->map[j][i] != '1' && data->map[j][i] != ' ' &&
 					data->map[j][i] != 'N' && data->map[j][i] != 'E' &&
 					data->map[j][i] != 'S' && data->map[j][i] != 'W')
-				return (printf("parsing error\n"), 0);
+				return (printf("parsing error 2 %i\n", data->map[j][i]), 0);
 			else
 				i++;
 		}

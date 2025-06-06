@@ -42,6 +42,26 @@ void	display_map(t_data *data)
 	}
 }
 
+
+void	display_map_color(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->color[i][j] && data->map[i][j] != '\n')
+		{
+			ft_printf(1, "%d", data->map[i][j]);
+			j++;
+		}
+		ft_printf(1, "\n");
+		i++;
+	}
+}
+
 void	ft_strcpy_cube(char *dest, char *src, int size)
 {
 	int	i;
@@ -194,6 +214,7 @@ int ft_parsing(t_data *data)
 	// 	return (printf("parsing error\n"), 0);
 	return (1);
 }
+
 int check_borders(t_data *data, int i, int j)
 {
     if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)

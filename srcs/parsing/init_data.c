@@ -4,25 +4,23 @@ void	initialize_player(t_data *game, int start_x, int start_y)
 {
 	(void)start_x;
 	(void)start_y;
-	game->player_x = 0;
-	game->player_y = 0;
+	game->player_x = 10;
+	game->player_y = 4;
 }
 
 void	initialize_img(t_img *img)
 {
-	img->img_path = NULL;
-	img->img_wall = NULL;
-	img->img_player = NULL;
+	img->img_path = 0;
+	img->img_wall = 0;
+	img->img_player = 0;
 }
 
-t_img	xpm_to_img(t_data *game, int width, int height)
+t_img	xpm_to_img(t_data *game)
 {
-	game->img.img_path = mlx_xpm_file_to_image(game->mlx_connection,
-			"sprites_cub3d/grass.xpm", &width, &height);
-	game->img.img_wall = mlx_xpm_file_to_image(game->mlx_connection,
-			"sprites_cub3d/water.xpm", &width, &height);
-	game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
-			"sprites_cub3d/player.xpm", &width, &height);
+	game->img.img_path = get_sprite("sprites_cub3d/grass.xpm");
+	game->img.img_wall = get_sprite("sprites_cub3d/water.xpm");
+	// game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
+	// 		"sprites_cub3d/player.xpm", &width, &height);
 	if (!game->img.img_path || !game->img.img_wall)
 		close_program(game);
 	return (game->img);
@@ -30,13 +28,8 @@ t_img	xpm_to_img(t_data *game, int width, int height)
 
 t_img	load_sprites(t_data *game)
 {
-	int		width;
-	int		height;
-
-	width = 0;
-	height = 0;
 	initialize_img(&game->img);
-	game->img = xpm_to_img(game, width, height);
+	game->img = xpm_to_img(game);
 	return (game->img);
 }
 

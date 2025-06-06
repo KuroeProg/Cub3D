@@ -35,10 +35,26 @@
      data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
      data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W')
 
+typedef	struct  s_conv
+{
+	char 	c;
+	int		color;
+}				t_conv;
+
+typedef struct s_sprit
+{
+	int	**color;
+	int	width;
+	int	height;
+	t_conv	**tab;
+	int	nb_colors;
+	int	sizeof_c;
+}				t_sprit;
+
 typedef struct s_img
 {
-	void	*img_path;
-	void	*img_wall;
+	int		**img_path;
+	int		**img_wall;
 	void	*img_player;
 	void	*img_;
 }				t_img;
@@ -63,6 +79,7 @@ typedef struct s_data
 	void	*mlx_connection;
 	void	*mlx_window;
 	t_img	img;
+	t_mlx	img_mlx;
 	int		map_width; //horizontal
 	int		map_height; //vertical
 	char 	**map;
@@ -88,7 +105,7 @@ int check_borders(t_data *data, int i, int j);
 /*init_data*/
 void 	init_data(t_data *data);
 t_img	load_sprites(t_data *game);
-t_img	xpm_to_img(t_data *game, int width, int height);
+t_img	xpm_to_img(t_data *game);
 void	initialize_img(t_img *img);
 void	initialize_player(t_data *game, int start_x, int start_y);
 /* algo */
@@ -103,10 +120,17 @@ int		close_program(void *param);
 void	free_game(t_data *game);
 void	free_sprites(t_img *img, void *mlx_connection);
 void	free_map(char **map);
+void	free_tab(char **tab);
 
 /* display_2d */
-void	display_line(char *line, t_data *game, t_img *img, int j);
+void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
+int		**get_sprite(char *sprite);
+
+/* draw */
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
+void	ft_reset_img(t_data *img);
+void	ft_mlx_put_image_to_window(t_mlx *window, int **img, int i, int j);
 
 #endif // CUB3D_H

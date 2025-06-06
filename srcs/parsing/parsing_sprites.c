@@ -7,7 +7,7 @@ int	ft_hexconvert(char *nptr)
 
 	nb = 0;
 	i = 0;
-	while (i < 6)
+	while (i < 2)
 	{
 		if (nptr[i] <= '9' && nptr[i] >= '0')
 			nb = nb * 16 + nptr[i] - 48;
@@ -15,6 +15,19 @@ int	ft_hexconvert(char *nptr)
 			nb = nb * 16 + nptr[i] - 65 + 10;
 		i++;
 	}
+	return (nb);
+}
+
+int ft_convert_color(char *nptr)
+{
+	int	nb;
+
+	nb = ft_hexconvert(&nptr[4]);
+	printf("hexa %c%c : deci %d\n", nptr[4], nptr[5], nb);
+	nb += 1000 * ft_hexconvert(&nptr[2]);
+	printf("hexa %c%c : deci %d\n", nptr[2], nptr[3], nb);
+	nb += 1000000 * ft_hexconvert(&nptr[0]);
+	printf("hexa %s : deci %d\n", nptr, nb);
 	return (nb);
 }
 
@@ -34,6 +47,7 @@ int	ft_get_color(char *line)
 		i++;
 	if (line[i] == '#')
 	{
+		i++;
 		tmp = i;
 		while (line[i] && (i - tmp < 6))
 		{
@@ -41,7 +55,7 @@ int	ft_get_color(char *line)
 			i++;
 		}
 	}
-	return (ft_hexconvert(color));
+	return (ft_convert_color(color));
 }
 
 void	ft_tab_color(t_sprit *img, int fd)
@@ -52,6 +66,7 @@ void	ft_tab_color(t_sprit *img, int fd)
 
 	i = 0;
 	tab = malloc(sizeof(t_conv *) * img->nb_colors + sizeof(char) * 1);
+	(printf("nb_color : %d\n", img->nb_colors));
 	tab[img->nb_colors] = NULL;
 	while (i < img->nb_colors)
 	{
@@ -67,7 +82,7 @@ void	ft_tab_color(t_sprit *img, int fd)
 	img->tab = tab;
 }
 
-void	ft_fill_line_color(int *color, t_sprit *img, char *line)
+void	ft_fill_line_color(int *color, t_conv **tab, int size, char *line)
 {
 	int	i;
 	int	j;
@@ -75,15 +90,17 @@ void	ft_fill_line_color(int *color, t_sprit *img, char *line)
 
 	i = 0;
 	k = 0;
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 	{
 		j = 0;
-		while (j < img->nb_colors)
+		while (j < size)
 		{
-			if (img->tab[j]->c == line[i])
+			if ((*tab[j]).c == line[i])
 			{
-				color[k] = img->tab[j]->color;
+				color[k] = (*tab[j]).color;
+				printf("colonne %d : couleur %d\n", k, color[k]);
 				k++;
+				break ;
 			}
 			j++;
 		}
@@ -108,9 +125,22 @@ void	ft_fill_img(t_sprit *img, int fd)
 	{
 		free(line);
 		img->color[i] = (int *)malloc(sizeof(int) * img->width);
-		ft_fill_line_color(img->color[i], img, line);
+		printf("ligne %d : %s\n", i, line);
+		ft_fill_line_color(img->color[i], img->tab, img->nb_colors, line);
 		i++;
 		line = get_next_line(fd);
+	}
+}
+
+void	display_convert(t_conv **tab, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("%c : %d\n", (*tab[i]).c, (*tab[i]).color);
+		i++;
 	}
 }
 
@@ -126,6 +156,7 @@ void	ft_sprite_img(t_sprit *img, char *infos, int fd)
 	free_tab(stocks);
 	free(infos);
 	ft_tab_color(img, fd);
+	// display_convert(img->tab, img->nb_colors);
 	ft_fill_img(img, fd);
 }
 

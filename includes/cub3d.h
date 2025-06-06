@@ -127,6 +127,7 @@ void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 int		**get_sprite(char *sprite);
+void	display_map_color(int **data);
 
 /* draw */
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);

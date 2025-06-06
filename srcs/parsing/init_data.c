@@ -18,7 +18,9 @@ void	initialize_img(t_img *img)
 t_img	xpm_to_img(t_data *game)
 {
 	game->img.img_path = get_sprite("sprites_cub3d/grass.xpm");
+	// display_map_color(game->img.img_path);
 	game->img.img_wall = get_sprite("sprites_cub3d/water.xpm");
+	// display_map_color(game->img.img_wall);
 	// game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
 	// 		"sprites_cub3d/player.xpm", &width, &height);
 	if (!game->img.img_path || !game->img.img_wall)

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	else
 		ft_printf(1, "Valide\n");
 	//affichage de la map recu, dans le terminal
-	display_map(&data);
+	// display_map(&data);
 	//chargement des textures
 	data.mlx_connection = mlx_init();
 	data.img = load_sprites(&data);

@@ -105,7 +105,7 @@ int check_borders(t_data *data, int i, int j);
 /*init_data*/
 void 	init_data(t_data *data);
 t_img	load_sprites(t_data *game);
-t_img	xpm_to_img(t_data *game);
+// t_img	xpm_to_img(t_data *game);
 void	initialize_img(t_img *img);
 void	initialize_player(t_data *game, int start_x, int start_y);
 /* algo */
@@ -126,12 +126,12 @@ void	free_tab(char **tab);
 void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
-int		**get_sprite(char *sprite);
-void	display_map_color(int **data);
+// int		**get_sprite(char *sprite);
+// void	display_map_color(int **data);
 
 /* draw */
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void	ft_reset_img(t_data *img);
-void	ft_mlx_put_image_to_window(t_mlx *window, int **img, int i, int j);
+void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j);
 
 #endif // CUB3D_H

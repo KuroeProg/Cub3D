@@ -26,9 +26,9 @@ int main(int argc, char **argv)
 	// display_map(&data);
 	//chargement des textures
 	data.mlx_connection = mlx_init();
-	data.img = load_sprites(&data);
+	// data.img = load_sprites(&data);
 	//affichage de la map en 2D avec la minilibx
-	initialize_player(&data, data.player_start_x, data.player_start_y);
+	// initialize_player(&data, data.player_start_x, data.player_start_y);
 	data.mlx_window = mlx_new_window(data.mlx_connection,
 		data.map_width * 32, data.map_height * 32, "cub3d");
 	data.img_mlx.img = mlx_new_image(data.mlx_connection, 1920, 1080);

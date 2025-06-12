@@ -27,13 +27,14 @@ void	display_line(char *line, t_mlx *img_mlx, t_img *img, int j)
 	int	i;
 
 	i = 0;
+	(void)img;
 	while (line[i])
 	{
 		if (line[i] == '1')
-			ft_mlx_put_image_to_window(img_mlx, img->img_wall, i * 32, j * 32);
+			ft_mlx_put_image_to_window(img_mlx, 0x000000, i * 32, j * 32);
 		else if (line[i] == '0' || line [i] == 'N' || line[i] == 'W'
 			|| line[i] == 'E' || line[i] == 'S')
-			ft_mlx_put_image_to_window(img_mlx, img->img_path, i * 32, j * 32);
+			ft_mlx_put_image_to_window(img_mlx, 0xFFFFFF, i * 32, j * 32);
 		i++;
 	}
 }

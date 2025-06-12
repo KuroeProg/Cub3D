@@ -23,44 +23,44 @@
 // 	ft_flood_fill(map, game, i, j - 1);
 // }
 
-void	display_map(t_data *data)
-{
-	int	i;
-	int	j;
+// void	display_map(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j] && data->map[i][j] != '\n')
-		{
-			ft_printf(1, "%c", data->map[i][j]);
-			j++;
-		}
-		ft_printf(1, "\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (data->map[i])
+// 	{
+// 		j = 0;
+// 		while (data->map[i][j] && data->map[i][j] != '\n')
+// 		{
+// 			ft_printf(1, "%c", data->map[i][j]);
+// 			j++;
+// 		}
+// 		ft_printf(1, "\n");
+// 		i++;
+// 	}
+// }
 
 
-void	display_map_color(int **map)
-{
-	int	i;
-	int	j;
+// void	display_map_color(int **map)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	while (i < 32)
-	{
-		j = 0;
-		while (j < 32 && map[i][j] != '\n')
-		{
-			ft_printf(1, "%d ", map[i][j]);
-			j++;
-		}
-		ft_printf(1, "\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < 32)
+// 	{
+// 		j = 0;
+// 		while (j < 32 && map[i][j] != '\n')
+// 		{
+// 			ft_printf(1, "%d ", map[i][j]);
+// 			j++;
+// 		}
+// 		ft_printf(1, "\n");
+// 		i++;
+// 	}
+// }
 
 void	ft_strcpy_cube(char *dest, char *src, int size)
 {
@@ -186,8 +186,10 @@ int ft_parsing(t_data *data)
 {
 	int	i;
 	int	j;
+	int	count;
 
 	j = 0;
+	count = 0;
 	while (j < data->map_height)
 	{
 		i = 0;
@@ -205,11 +207,22 @@ int ft_parsing(t_data *data)
 					data->map[j][i] != 'N' && data->map[j][i] != 'E' &&
 					data->map[j][i] != 'S' && data->map[j][i] != 'W')
 				return (printf("parsing error 2 %i\n", data->map[j][i]), 0);
+			else if (data->map[j][i] == 'N' || data->map[j][i] == 'E' ||
+					data->map[j][i] == 'S' || data->map[j][i] == 'W')
+			{
+				if (!check_borders(data, i, j))
+					return (printf("parsing error 1\n"), 0);
+				else
+					count++;
+				i++;
+			}
 			else
 				i++;
 		}
 		j++;
 	}
+	if (count != 1)
+		return (printf("parsing error 3 %d\n", count), 0);
 	// if (!flood_fill(data->map, data, i, j))
 	// 	return (printf("parsing error\n"), 0);
 	return (1);

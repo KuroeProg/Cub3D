@@ -36,7 +36,7 @@ void	ft_draw(t_mlx *img, int x, int y, int color)
 	}
 }
 
-void	ft_mlx_put_image_to_window(t_mlx *window, int **img, int i, int j)
+void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
 {
 	int	k;
 	int	l;
@@ -48,7 +48,7 @@ void	ft_mlx_put_image_to_window(t_mlx *window, int **img, int i, int j)
 		l = 0;
 		while (l < 32)
 		{
-			ft_draw(window, i + l, j + k, img[k][l]);
+			ft_draw(window, i + l, j + k, color);
 			l++;
 		}
 		k++;

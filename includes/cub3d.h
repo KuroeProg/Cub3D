@@ -41,6 +41,20 @@ typedef	struct  s_conv
 	int		color;
 }				t_conv;
 
+typedef struct s_dda
+{
+    int		map_x;
+    int		map_y;
+    double	side_x;
+    double	side_y;
+    double	delta_x;
+    double	delta_y;
+    int		step_x;
+    int		step_y;
+    int		hit;
+    int		side;
+}	t_dda;
+
 typedef struct s_sprit
 {
 	int	**color;

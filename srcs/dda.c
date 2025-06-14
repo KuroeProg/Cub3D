@@ -1,7 +1,7 @@
 #include "../includes/cub3d.h"
+#include <math.h>
 
-void	init_dda(t_dda *d, double pos_x, double pos_y, 
-	double dir_x, double dir_y)
+void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y)
 {
     d->map_x = (int)pos_x;
     d->map_y = (int)pos_y;
@@ -51,8 +51,6 @@ void	perform_dda(t_data *data, t_dda *d)
     }
 }
 
-#include "../includes/cub3d.h"
-
 void	raycast_scene(t_data *data)
 {
     int		x;
@@ -74,8 +72,7 @@ void	raycast_scene(t_data *data)
             perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / ray_dir_x;
         else
             perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / ray_dir_y;
-        // Ici tu peux utiliser perp_wall_dist, d.side, d.map_x, d.map_y pour dessiner la colonne x
-        // Exemple : draw_vertical_line(x, perp_wall_dist, d.side, ...);
+        draw_vertical_line(data, x, perp_wall_dist, d.side);
         x++;
     }
 }

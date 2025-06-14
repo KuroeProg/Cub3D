@@ -63,7 +63,7 @@ typedef struct s_coordonnees
 {
 	float x; //horizontal
 	float y; //vertical
-} t_coordonnees;
+} t_co;
 
 typedef struct s_mlx
 {
@@ -113,7 +113,7 @@ void	initialize_player(t_data *game, int start_x, int start_y);
 
 /* utils */
 int		handle_keypress(int keycode, void *param);
-void	display_map(t_data *data);
+// void	display_map(t_data *data);
 int		close_program(void *param);
 
 /* free */
@@ -133,5 +133,7 @@ int		render_frame(t_data *data);
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void	ft_reset_img(t_data *img);
 void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j);
+void	display_player(t_data *data);
+void	ft_draw(t_mlx *img, int x, int y, int color);
 
 #endif // CUB3D_H

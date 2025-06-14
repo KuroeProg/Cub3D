@@ -1,5 +1,23 @@
 #include "../includes/cub3d.h"
 
+void	display_player(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 16)
+	{
+		j = 0;
+		while(j < 16)
+		{
+			ft_draw(&data->img_mlx, data->player_start_y * 32 + 8 + i, data->player_start_x * 32 + 8 + j, 0xFF0000);
+			j ++;
+		}
+		i++;
+	}
+}
+
 void	ft_movesprite(char *line, t_data *game, int j, t_img *img)
 {
 	int	i;
@@ -79,6 +97,7 @@ int	render_frame(t_data *data)
 		// ft_movesprite(data->map[j], data, j, &data->img);
 		j++;
 	}
+	display_player(data);
 	mlx_put_image_to_window(data->mlx_connection, data->mlx_window, data->img_mlx.img, 0, 0);
 	// ft_mlx_put_image_to_window(data->mlx_connection, data->mlx_window,
 	// 	data->img.img_player, data->player_x * 32, data->player_y * 32);

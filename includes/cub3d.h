@@ -11,12 +11,16 @@
 #include <math.h> //maths functions (-lm compilation flag)
 #include "../.minilibx-linux/mlx.h" // (-lmlx, lX11, -lXext, -lm for compilation)
 
-#define NO [text]
-#define SO [text]
-#define WE [text]
-#define EA [text]
+#define NO 0
+#define SO 1
+#define WE 2
+#define EA 3
 #define C  [int] //couleur ciel
 #define F  [int] //couleur plafond
+
+# define TEX_WIDTH 32
+# define TEX_HEIGHT 32
+# define TEX_COUNT 4
 
 #define CHECK_MAP_TOP \
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
@@ -53,11 +57,14 @@ typedef struct s_dda
     int		step_y;
     int		hit;
     int		side;
+    double	ray_dir_x;
+    double	ray_dir_y;
+    int		tex_num;
 }	t_dda;
 
 typedef struct s_sprit
 {
-	int	**color;
+	int	**color;      // <--- Cette variable sert à stocker les couleurs (pixels) d'un sprite custom, PAS pour les textures minilibx classiques.
 	int	width;
 	int	height;
 	t_conv	**tab;
@@ -67,10 +74,10 @@ typedef struct s_sprit
 
 typedef struct s_img
 {
-	int		**img_path;
-	int		**img_wall;
-	void	*img_player;
-	void	*img_;
+	void	*img_path;   // image sol (ex: grass.xpm)
+	void	*img_wall;   // image mur (ex: water.xpm)
+	void	*img_player; // image joueur
+	void	*img_;       // image additionnelle si besoin
 }				t_img;
 
 typedef struct s_coordonnees
@@ -90,24 +97,27 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
-	void	*mlx_connection;
-	void	*mlx_window;
-	t_img	img;
-	t_mlx	img_mlx;
-	int		map_width; //horizontal
-	int		map_height; //vertical
-	char 	**map;
-	int		player_x;
-	int		player_y;
-	int		player_start_x;
-	int		player_start_y;
-	int		dirX; //horizontal
-	int		dirY; //vertical
-	int		PlaneY;
-	int		PlaneX;
-	int		i;
-	int		j;
-} t_data;
+    void	*mlx_connection;
+    void	*mlx_window;
+    t_mlx	img_mlx;
+    int		screen_width;
+    int		screen_height;
+    char	**map;
+    double	player_x;
+    double	player_y;
+    double	dir_x;
+    double	dir_y;
+    double	plane_x;
+    double	plane_y;
+    int     *texture[4];
+    int		map_width;
+    int		map_height;
+    int		player_start_x;
+    int		player_start_y;
+    int		i;
+    int		j;
+    t_img	img;
+}	t_data;
 
 /* parsing */
 /* check_map.c */
@@ -149,5 +159,13 @@ void	ft_reset_img(t_data *img);
 void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j);
 void	display_player(t_data *data);
 void	ft_draw(t_mlx *img, int x, int y, int color);
+
+/*new functions*/
+void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y);
+void	perform_dda(t_data *data, t_dda *d);
+void	raycast_scene(t_data *data);
+void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d);
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
+void	load_textures(t_data *game);
 
 #endif // CUB3D_H

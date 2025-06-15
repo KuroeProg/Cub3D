@@ -54,22 +54,3 @@ void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
 		k++;
 	}
 }
-
-void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
-{
-	int	k;
-	int	l;
-
-	k = 0;
-	l = 0;
-	while (k < 32)
-	{
-		l = 0;
-		while (l < 32)
-		{
-			ft_draw(window, i + l, j + k, color);
-			l++;
-		}
-		k++;
-	}
-}

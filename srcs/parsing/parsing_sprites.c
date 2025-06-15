@@ -160,15 +160,12 @@
 // 	ft_fill_img(img, fd);
 // }
 
-<<<<<<< HEAD
 // int	**get_sprite(char *sprite)
 // {
 // 	char	*line;
 // 	int		fd;
-// 	int		i;
 // 	t_sprit img;
 
-// 	i = 0;
 // 	fd = open(sprite, O_RDONLY);
 // 	if (!fd || fd < 0)
 // 		return (0);
@@ -184,28 +181,3 @@
 // 	close(fd);
 // 	return (img.color);
 // }
-=======
-int	**get_sprite(char *sprite)
-{
-	char	*line;
-	int		fd;
-	// int		i;
-	t_sprit img;
-
-	// i = 0;
-	fd = open(sprite, O_RDONLY);
-	if (!fd || fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (0);
-	while (line && line[0] != '\"')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	ft_sprite_img(&img, line, fd);
-	close(fd);
-	return (img.color);
-}
->>>>>>> 8c4d9e6 (feur)

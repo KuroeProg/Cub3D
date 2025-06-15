@@ -72,7 +72,7 @@ void	raycast_scene(t_data *data)
             perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / ray_dir_x;
         else
             perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / ray_dir_y;
-        draw_vertical_line(data, x, perp_wall_dist, d.side);
+        draw_vertical_line(data, x, perp_wall_dist, &d);
         x++;
     }
 }

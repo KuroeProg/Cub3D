@@ -1,11 +1,33 @@
 #include "../../includes/cub3d.h"
 
-void	initialize_player(t_data *game, int start_x, int start_y)
+void	init_player(t_data *data, char c, int x, int y)
 {
-	(void)start_x;
-	(void)start_y;
-	game->player_x = 10;
-	game->player_y = 4;
+	if (c == 'N')
+	{
+		data->dir_x = 0;
+		data->dir_y = -1;
+	}
+	else if (c == 'E')
+	{
+		data->dir_x = 1;
+		data->dir_y = 0;
+	}
+	else if (c == 'S')
+	{
+		data->dir_x = 0;
+		data->dir_y = 1;
+	}
+	else if (c == 'W')
+	{
+		data->dir_x = -1;
+		data->dir_y = 0;
+	}
+	data->player_start_x = x;
+	data->player_start_y = y;
+	data->player_x = x + 0.5;
+	data->player_y = y + 0.5;
+	data->plane_x = -data->dir_y * 0.66;
+	data->plane_y = data->dir_x * 0.66;
 }
 
 void	initialize_img(t_img *img)
@@ -15,38 +37,6 @@ void	initialize_img(t_img *img)
 	img->img_player = NULL;
 	img->img_ = NULL;
 }
-
-// t_img	xpm_to_img(t_data *game)
-// {
-// 	int width = 0;
-// 	int height = 0;
-
-// 	// game->img.img_path = get_sprite("sprites_cub3d/grass.xpm");
-// 	// display_map_color(game->img.img_path);
-// 	// game->img.img_wall = get_sprite("sprites_cub3d/water.xpm");
-// 	// display_map_color(game->img.img_wall);
-// 	// game->img.img_player = mlx_xpm_file_to_image(game->mlx_connection,
-// 	// 		"sprites_cub3d/player.xpm", &width, &height);
-// 	game->img.img_path = mlx_xpm_file_to_image(game->mlx_connection,
-// 			"sprites_solong/grass.xpm", &width, &height);
-// 	game->img.img_wall = mlx_xpm_file_to_image(game->mlx_connection,
-// 			"sprites_solong/water.xpm", &width, &height);
-// 	if (!game->img.img_path || !game->img.img_wall)
-// 		close_program(game);
-// 	return (game->img);
-// }
-
-// t_img	load_sprites(t_data *game)
-// {
-// 	initialize_img(&game->img);
-// 	game->img = xpm_to_img(game);
-// 	game->texture = (int **)malloc(sizeof(int *) * 4);
-// 	game->texture[0] = game->img.img_path;
-// 	game->texture[1] = game->img.img_wall;
-// 	game->texture[2] = game->img.img_path;
-// 	game->texture[3] = game->img.img_wall;
-// 	return (game->img);
-// }
 
 void initialize_dda(t_dda *d)
 {
@@ -108,11 +98,11 @@ void init_data(t_data *data)
     data->screen_width = 1920;
     data->screen_height = 1080;
     data->map = NULL;
-    data->player_x = 10;
-    data->player_y = 4;
+    data->player_x = 0;
+    data->player_y = 0;
     data->dir_x = 0;
     data->dir_y = 0;
-    data->plane_x = 0;
+    data->plane_x = -0.66;
     data->plane_y = 0;
     data->texture[0] = NULL;
     data->texture[1] = NULL;
@@ -120,8 +110,8 @@ void init_data(t_data *data)
     data->texture[3] = NULL;
     data->map_width = 0;
     data->map_height = 0;
-    data->player_start_x = 1;
-    data->player_start_y = 1;
+    data->player_start_x = 0;
+    data->player_start_y = 0;
     data->i = 0;
     data->j = 0;
     initialize_img(&data->img);
@@ -130,26 +120,30 @@ void init_data(t_data *data)
 int	*void_to_int(void *ptr)
 {
 	int bpp, sl, endian;
-	if (!ptr)
-		return (printf("test\n"),NULL);
 	int *pixels = (int *)mlx_get_data_addr(ptr, &bpp, &sl, &endian);
 	return (pixels);
 }
 
-void	load_textures(t_data *game)
+void	load_textures(t_data *data)
 {
 	int	w;
 	int	h;
 
-	game->img.img_path = mlx_xpm_file_to_image(game->mlx_connection,
-		"../sprites_cub3d/grass.xpm", &w, &h);
-	game->img.img_wall = mlx_xpm_file_to_image(game->mlx_connection,
-		"../sprites_cub3d/water.xpm", &w, &h);
-	// Ajoute d'autres textures si besoin
-	game->texture[0] = void_to_int(game->img.img_path);
-	game->texture[1] = void_to_int(game->img.img_wall);
-	game->texture[2] = void_to_int(game->img.img_path);
-	game->texture[3] = void_to_int(game->img.img_wall);
+	w = 0;
+	h = 0;
+	data->texture[0] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
+		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/green.xpm", &w, &h));
+	data->texture[1] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
+		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/yellow.xpm", &w, &h));
+	data->texture[2] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
+		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/red.xpm", &w, &h));
+	data->texture[3] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
+		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/blue.xpm", &w, &h));
+	if (!data->texture[0] || !data->texture[1])
+	{
+		printf("error texture \n");
+		exit(1);
+	}
 	// Par exemple, tu peux ajouter d'autres textures ici
 }
 

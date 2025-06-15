@@ -14,7 +14,7 @@
 
 
 
-void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
+void		**mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
 				     int (*xpm_func)(),void *param)
 {
   XImage	*img1;

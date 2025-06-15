@@ -55,8 +55,8 @@ void	raycast_scene(t_data *data)
 {
     int		x;
     double	camera_x;
-    double	ray_dir_x;
-    double	ray_dir_y;
+    // double	ray_dir_x;
+    // double	ray_dir_y;
     double	perp_wall_dist;
     t_dda	d;
 
@@ -64,14 +64,14 @@ void	raycast_scene(t_data *data)
     while (x < data->screen_width)
     {
         camera_x = 2 * x / (double)data->screen_width - 1;
-        ray_dir_x = data->dir_x + data->plane_x * camera_x;
-        ray_dir_y = data->dir_y + data->plane_y * camera_x;
-        init_dda(&d, data->player_x, data->player_y, ray_dir_x, ray_dir_y);
+        d.ray_dir_x = data->dir_x + data->plane_x * camera_x;
+        d.ray_dir_y = data->dir_y + data->plane_y * camera_x;
+        init_dda(&d, data->player_x, data->player_y, d.ray_dir_x, d.ray_dir_y);
         perform_dda(data, &d);
         if (d.side == 0)
-            perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / ray_dir_x;
+            perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / d.ray_dir_x;
         else
-            perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / ray_dir_y;
+            perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / d.ray_dir_y;
         draw_vertical_line(data, x, perp_wall_dist, &d);
         x++;
     }

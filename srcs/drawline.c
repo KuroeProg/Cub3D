@@ -3,22 +3,24 @@
 
 void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
 {
-    int		line_height;
-    int		draw_start;
-    int		draw_end;
-    int		y;
-    double	wall_x;
-    int		tex_x;
-    int		tex_y;
-    double	step;
-    double	tex_pos;
-    int		color;
+    int		line_height = 0;
+    int		draw_start = 0;
+    int		draw_end = 0;
+    int		y = 0;
+    double	wall_x = 0;
+    int		tex_x = 0;
+    int		tex_y = 0;
+    double	step = 0;
+    double	tex_pos = 0;
+    int		color = 0;
 
     line_height = (int)(data->screen_height / perp_wall_dist);
     draw_start = -line_height / 2 + data->screen_height / 2;
+	//ne depasse pas le bas de l'ecran
     if (draw_start < 0)
         draw_start = 0;
     draw_end = line_height / 2 + data->screen_height / 2;
+	//ne depasse pas le haut de l'ecran
     if (draw_end >= data->screen_height)
         draw_end = data->screen_height - 1;
     if (d->side == 0)
@@ -26,15 +28,18 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
     else
         wall_x = data->player_x + perp_wall_dist * d->ray_dir_x;
     wall_x -= floor(wall_x);
+	// printf("d_side %d\n", d->side);
+	// printf("d_ray_dir_x %f\n", d->ray_dir_x);
+	// printf("d_ray_dir_y %f\n", d->ray_dir_y);
 	if (d->side == 0 && d->ray_dir_x > 0)
-    d->tex_num = EA;
-		else if (d->side == 0 && d->ray_dir_x < 0)
-    d->tex_num = WE;
-		else if (d->side == 1 && d->ray_dir_y > 0)
-    d->tex_num = SO;
-		else if (d->side == 1 && d->ray_dir_y < 0)
-    d->tex_num = NO;
-    tex_x = (int)(wall_x * 64.0);
+    	d->tex_num = EA;
+	else if (d->side == 0 && d->ray_dir_x <= 0)
+    	d->tex_num = WE;
+	else if (d->side == 1 && d->ray_dir_y > 0)
+   		d->tex_num = SO;
+	else if (d->side == 1 && d->ray_dir_y <= 0)
+    	d->tex_num = NO;
+    tex_x = (int)(wall_x * 32.0);
     if (d->side == 0 && d->ray_dir_x > 0)
         tex_x = TEX_WIDTH - tex_x - 1;
     if (d->side == 1 && d->ray_dir_y < 0)
@@ -43,7 +48,7 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
     tex_pos = (draw_start - data->screen_height / 2
             + line_height / 2) * step;
     y = draw_start;
-    while (y <= draw_end)
+    while (y < draw_end)
     {
         tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
         tex_pos += step;

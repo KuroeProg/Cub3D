@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 15:07:50 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/05/25 16:13:13 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/15 20:55:32 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,6 @@ void	ft_movesprite(char *line, t_game *game, int j, t_img *img)
 				img->img_exit, i * 32, j * 32);
 		i++;
 	}
-}
-
-/* ********************************************************************
-** load_sprites function will load the sprites from the xpm files.
-** We use the mlx_xpm_file_to_image function to load the sprites.
-** The variables widght and height will be used to store the size of the sprites.
-** We return the img structure with the sprites loaded.
-** *******************************************************************/
-t_img	load_sprites(t_game *game)
-{
-	int		width;
-	int		height;
-
-	width = 0;
-	height = 0;
-	initialize_img(&game->img);
-	game->img = xpm_to_img(game, width, height);
-	return (game->img);
 }
 /* ********************************************************************
 ** This function will parse the map and display it, by 'parsing' we mean that

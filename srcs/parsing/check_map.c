@@ -214,6 +214,7 @@ int ft_parsing(t_data *data)
 					return (printf("parsing error 1\n"), 0);
 				else
 					count++;
+				init_player(data, data->map[j][i], i, j);
 				i++;
 			}
 			else

@@ -74,10 +74,10 @@ typedef struct s_sprit
 
 typedef struct s_img
 {
-	void	*img_path;   // image sol (ex: grass.xpm)
-	void	*img_wall;   // image mur (ex: water.xpm)
-	void	*img_player; // image joueur
-	void	*img_;       // image additionnelle si besoin
+	char	*path_S;   // image sol (ex: grass.xpm)
+	char	*path_W;   // image sol (ex: grass.xpm)
+	char	*path_E;   // image sol (ex: grass.xpm)
+	char	*path_N;   // image sol (ex: grass.xpm)
 }				t_img;
 
 typedef struct s_coordonnees

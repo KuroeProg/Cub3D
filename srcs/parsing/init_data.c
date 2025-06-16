@@ -32,10 +32,10 @@ void	init_player(t_data *data, char c, int x, int y)
 
 void	initialize_img(t_img *img)
 {
-	img->img_path = NULL;
-	img->img_wall = NULL;
-	img->img_player = NULL;
-	img->img_ = NULL;
+	img->path_S = NULL;
+	img->path_E = NULL;
+	img->path_N = NULL;
+	img->path_W = NULL;
 }
 
 void initialize_dda(t_dda *d)
@@ -132,13 +132,13 @@ void	load_textures(t_data *data)
 	w = 0;
 	h = 0;
 	data->texture[0] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/green.xpm", &w, &h));
+		data->img.path_N, &w, &h));
 	data->texture[1] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/yellow.xpm", &w, &h));
+		data->img.path_S, &w, &h));
 	data->texture[2] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/red.xpm", &w, &h));
+		data->img.path_W, &w, &h));
 	data->texture[3] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-		"/home/tbahin/projets/p11_cub3d/repo_2/sprites_cub3d/blue.xpm", &w, &h));
+		data->img.path_E, &w, &h));
 	if (!data->texture[0] || !data->texture[1])
 	{
 		printf("error texture \n");
@@ -146,5 +146,3 @@ void	load_textures(t_data *data)
 	}
 	// Par exemple, tu peux ajouter d'autres textures ici
 }
-
-

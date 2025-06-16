@@ -62,6 +62,32 @@
 // 	}
 // }
 
+
+int	ft_strlen_path(char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] && src[i] >= 46 && src[i] <= 122)
+		i++;
+	return (i);
+}
+
+char	*ft_strcpy_path(char *src)
+{
+	int	i;
+	char *dest;
+	i = 0;
+	dest = malloc(ft_strlen_path(src) * (sizeof(char) + 1));
+	while (src[i] && src[i] >= 46 && src[i] <= 122)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 void	ft_strcpy_cube(char *dest, char *src, int size)
 {
 	int	i;
@@ -98,6 +124,22 @@ int	ft_check_header(char *line)
 	return (1);
 }
 
+void	fill_path_text(char *line, t_data *data)
+{
+	if (line[0] == 'N' && line[1] == 'O')
+		data->img.path_N = ft_strcpy_path(&line[3]);
+	else if (line[0] == 'S' && line[1] == 'O')
+		data->img.path_S = ft_strcpy_path(&line[3]);
+	else if (line[0] == 'W' && line[1] == 'E')
+		data->img.path_W = ft_strcpy_path(&line[3]);
+	else if (line[0] == 'E' && line[1] == 'A')
+		data->img.path_E = ft_strcpy_path(&line[3]);
+	// if (line[0] == 'F' && line[1] == ' ')
+	// 	data->img.img_F = ft_strcpy_path(line);
+	// if (line[0] == 'C' && line[1] == ' ')
+	// 	data->img.img_C = ft_strcpy_path(line);
+}
+
 int	get_map(t_data *data, char *file_path) 
 {
 	char	*line;
@@ -114,6 +156,7 @@ int	get_map(t_data *data, char *file_path)
 	while (line && !ft_check_header(line))
 	{
 		// fill_info(); remplir les infos de la map (exemple : NO)
+		fill_path_text(line, data);
 		free(line);
 		line = get_next_line(fd);
 	}

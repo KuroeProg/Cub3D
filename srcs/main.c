@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	data.img_mlx.img = mlx_new_image(data.mlx_connection, data.screen_width, data.screen_height);
 	data.img_mlx.addr = mlx_get_data_addr(data.img_mlx.img,
 			&data.img_mlx.bits_per_pixel, &data.img_mlx.line_length, &data.img_mlx.endian);
-	mlx_key_hook(data.mlx_window, handle_keypress, &data);
+	mlx_hook(data.mlx_window, 2, (1L << 0), handle_keypress, &data);
 	mlx_loop_hook(data.mlx_connection, render_frame, &data);
 	mlx_hook(data.mlx_window, 17, 0, close_program, &data);
 	mlx_loop(data.mlx_connection);

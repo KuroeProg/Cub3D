@@ -26,6 +26,7 @@
 # define D 0x0064
 # define S 0x0073
 # define A 0x0061
+# define PI 3.1415
 
 #define CHECK_MAP_TOP \
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
@@ -114,6 +115,7 @@ typedef struct s_data
     double	player_y;
     double	dir_x;
     double	dir_y;
+	float	rad;
     double	plane_x;
     double	plane_y;
     int     *texture[4];
@@ -157,6 +159,7 @@ void	free_tab(char **tab);
 // void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
+void	move_player(t_data *data, int move);
 // int		**get_sprite(char *sprite);
 // void	display_map_color(int **data);
 

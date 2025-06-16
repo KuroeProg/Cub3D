@@ -22,12 +22,12 @@ void	init_player(t_data *data, char c, int x, int y)
 		data->dir_x = -1;
 		data->dir_y = 0;
 	}
-	data->player_start_x = x;
-	data->player_start_y = y;
 	data->player_x = x + 0.5;
 	data->player_y = y + 0.5;
 	data->plane_x = -data->dir_y * 0.66;
 	data->plane_y = data->dir_x * 0.66;
+	data->rad = atan2(data->dir_y, data->dir_x);
+	printf("%f", data->rad);
 }
 
 void	initialize_img(t_img *img)
@@ -72,18 +72,6 @@ void initialize_mlx(t_mlx *mlx)
 	mlx->bits_per_pixel = 0;
 	mlx->line_length = 0;
 	mlx->endian = 0;
-}
-
-void initialize_conv(t_conv *conv)
-{
-	conv->c = 0;
-	conv->color = 0;
-}
-
-void initialize_co(t_co *co)
-{
-	co->x = 0;
-	co->y = 0;
 }
 
 void init_data(t_data *data)

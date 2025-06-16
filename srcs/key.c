@@ -14,14 +14,14 @@ int	handle_keypress(int keycode, void *param)
 
 	data = (t_data *)param;
 	if (keycode == 0xff1b)
-		close_program(data);
-	else if (keycode == 0x0077)
+	 	close_program(data);
+	else if (keycode == W)
 		move_player(data, 0);
-	else if (keycode == 0x0073)
+	else if (keycode == S)
 		move_player(data, 1);
-	else if (keycode == 0x0061)
+	else if (keycode == A)
 		move_player(data, 2);
-	else if (keycode == 0x0064)
+	else if (keycode == D)
 		move_player(data, 3);
 	return (0);
 }

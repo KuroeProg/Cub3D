@@ -26,6 +26,8 @@
 # define D 0x0064
 # define S 0x0073
 # define A 0x0061
+# define Q 0x0071
+# define E 0x0065
 # define PI 3.1415
 
 #define CHECK_MAP_TOP \
@@ -45,12 +47,6 @@
      data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
      data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W')
 
-typedef	struct  s_conv
-{
-	char 	c;
-	int		color;
-}				t_conv;
-
 typedef struct s_dda
 {
     int		map_x;
@@ -68,16 +64,6 @@ typedef struct s_dda
     int		tex_num;
 }	t_dda;
 
-typedef struct s_sprit
-{
-	int	**color;      // <--- Cette variable sert à stocker les couleurs (pixels) d'un sprite custom, PAS pour les textures minilibx classiques.
-	int	width;
-	int	height;
-	t_conv	**tab;
-	int	nb_colors;
-	int	sizeof_c;
-}				t_sprit;
-
 typedef struct s_img
 {
 	char	*path_S;   // path texture sud
@@ -87,12 +73,6 @@ typedef struct s_img
 	int		c_color;
 	int		f_color;
 }				t_img;
-
-typedef struct s_coordonnees
-{
-	float x; //horizontal
-	float y; //vertical
-} t_co;
 
 typedef struct s_mlx
 {
@@ -160,6 +140,7 @@ void	free_tab(char **tab);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 void	move_player(t_data *data, int move);
+void	cam_player(t_data *data, int cam);
 // int		**get_sprite(char *sprite);
 // void	display_map_color(int **data);
 

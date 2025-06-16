@@ -23,3 +23,23 @@ void	move_player(t_data *data, int move)
 		data->player_y += data->dir_x * 0.03;
 	}
 }
+
+void	cam_player(t_data *data, int cam)
+{
+	if (cam == 0)
+	{ 
+		data->rad -= PI/64;
+		data->dir_x += data->dir_y * (PI / 64);
+		data->dir_y += -data->dir_x * (PI / 64);
+		data->plane_x = -data->dir_y * 0.66;
+		data->plane_y = data->dir_x * 0.66;
+	}
+	else if (cam == 1)
+	{
+		data->rad += PI/64;
+		data->dir_x += -data->dir_y * (PI / 64);
+		data->dir_y += data->dir_x * (PI / 64);
+		data->plane_x = -data->dir_y * 0.66;
+		data->plane_y = data->dir_x * 0.66;
+	}
+}

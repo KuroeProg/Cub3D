@@ -23,5 +23,9 @@ int	handle_keypress(int keycode, void *param)
 		move_player(data, 2);
 	else if (keycode == D)
 		move_player(data, 3);
+	else if (keycode == Q)
+		cam_player(data, 0);
+	else if (keycode == E)
+		cam_player(data, 1);
 	return (0);
 }

@@ -27,7 +27,6 @@ void	init_player(t_data *data, char c, int x, int y)
 	data->plane_x = -data->dir_y * 0.66;
 	data->plane_y = data->dir_x * 0.66;
 	data->rad = atan2(data->dir_y, data->dir_x);
-	printf("%f", data->rad);
 }
 
 void	initialize_img(t_img *img)
@@ -53,16 +52,6 @@ void initialize_dda(t_dda *d)
 	d->ray_dir_x = 0;
 	d->ray_dir_y = 0;
 	d->tex_num = 0;
-}
-
-void initialize_sprit(t_sprit *s)
-{
-	s->color = NULL;
-	s->width = 0;
-	s->height = 0;
-	s->tab = NULL;
-	s->nb_colors = 0;
-	s->sizeof_c = 0;
 }
 
 void initialize_mlx(t_mlx *mlx)

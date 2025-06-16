@@ -19,7 +19,6 @@ void	ft_reset_img(t_data *img)
 	}
 }
 
-
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
 	char	*dst;
@@ -35,22 +34,43 @@ void	ft_draw(t_mlx *img, int x, int y, int color)
 		my_mlx_pixel_put(img, x, y, color);
 	}
 }
-
-void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
+void	ft_mlx_put_image(t_data *data, int color, int color2)
 {
-	int	k;
-	int	l;
+	int	y;
+	int	x;
 
-	k = 0;
-	l = 0;
-	while (k < 32)
+	y = 0;
+	x = 0;
+	while (y < 1080)
 	{
-		l = 0;
-		while (l < 32)
+		x = 0;
+		while (x < 1920)
 		{
-			ft_draw(window, i + l, j + k, color);
-			l++;
+			if (y < 1080 / 2)
+				my_mlx_pixel_put(&data->img_mlx, x, y, color);
+			else
+				my_mlx_pixel_put(&data->img_mlx, x, y, color2);
+			x++;
 		}
-		k++;
+		y++;
 	}
 }
+
+// void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
+// {
+// 	int	k;
+// 	int	l;
+
+// 	k = 0;
+// 	l = 0;
+// 	while (k < 32)
+// 	{
+// 		l = 0;
+// 		while (l < 32)
+// 		{
+// 			ft_draw(window, i + l, j + k, color);
+// 			l++;
+// 		}
+// 		k++;
+// 	}
+// }

@@ -62,8 +62,7 @@
 // 	}
 // }
 
-
-int	ft_strlen_path(char *src)
+int	strlen_path(char *src)
 {
 	int	i;
 
@@ -73,12 +72,12 @@ int	ft_strlen_path(char *src)
 	return (i);
 }
 
-char	*ft_strcpy_path(char *src)
+char	*strcpy_path(char *src)
 {
 	int	i;
 	char *dest;
 	i = 0;
-	dest = malloc(ft_strlen_path(src) * (sizeof(char) + 1));
+	dest = malloc(strlen_path(src) * (sizeof(char) + 1));
 	while (src[i] && src[i] >= 46 && src[i] <= 122)
 	{
 		dest[i] = src[i];
@@ -88,7 +87,7 @@ char	*ft_strcpy_path(char *src)
 	return (dest);
 }
 
-void	ft_strcpy_cube(char *dest, char *src, int size)
+void	strcpy_cube(char *dest, char *src, int size)
 {
 	int	i;
 
@@ -104,7 +103,7 @@ void	ft_strcpy_cube(char *dest, char *src, int size)
 	dest[i] = '\0';
 }
 
-int	ft_check_header(char *line)
+int	check_header(char *line)
 {
 	int	i;
 	int	check;
@@ -124,20 +123,53 @@ int	ft_check_header(char *line)
 	return (1);
 }
 
+int	conv_color(int r, int g, int b)
+{
+	int color;
+
+	color = (r << 16) | (g << 8) | b;
+	return (color);
+}
+
+int	get_color(char *str)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = 0;
+	g = 0;
+	b = 0;
+	while (!ft_isdigit(*str))
+		str++;
+	r = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	while (!ft_isdigit(*str))
+		str++;
+	g = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	while (!ft_isdigit(*str))
+		str++;
+	b = ft_atoi(str);
+	return (conv_color(r, g, b));
+}
+
 void	fill_path_text(char *line, t_data *data)
 {
 	if (line[0] == 'N' && line[1] == 'O')
-		data->img.path_N = ft_strcpy_path(&line[3]);
+		data->img.path_N = strcpy_path(&line[3]);
 	else if (line[0] == 'S' && line[1] == 'O')
-		data->img.path_S = ft_strcpy_path(&line[3]);
+		data->img.path_S = strcpy_path(&line[3]);
 	else if (line[0] == 'W' && line[1] == 'E')
-		data->img.path_W = ft_strcpy_path(&line[3]);
+		data->img.path_W = strcpy_path(&line[3]);
 	else if (line[0] == 'E' && line[1] == 'A')
-		data->img.path_E = ft_strcpy_path(&line[3]);
-	// if (line[0] == 'F' && line[1] == ' ')
-	// 	data->img.img_F = ft_strcpy_path(line);
-	// if (line[0] == 'C' && line[1] == ' ')
-	// 	data->img.img_C = ft_strcpy_path(line);
+		data->img.path_E = strcpy_path(&line[3]);
+	else if (line[0] == 'F' && line[1] == ' ')
+		data->img.c_color = get_color(line);
+	else if (line[0] == 'C' && line[1] == ' ')
+		data->img.f_color = get_color(line);
 }
 
 int	get_map(t_data *data, char *file_path) 
@@ -153,7 +185,7 @@ int	get_map(t_data *data, char *file_path)
 	line = get_next_line(fd); //implicit declaration
 	if (line == NULL)
 		return (0);
-	while (line && !ft_check_header(line))
+	while (line && !check_header(line))
 	{
 		// fill_info(); remplir les infos de la map (exemple : NO)
 		fill_path_text(line, data);
@@ -162,7 +194,7 @@ int	get_map(t_data *data, char *file_path)
 	}
 	while (line != NULL && data->map[i] && i < data->map_height)
 	{
-		ft_strcpy_cube(data->map[i], line, data->map_width);
+		strcpy_cube(data->map[i], line, data->map_width);
 		i++;
 		free(line);
 		line = get_next_line(fd);
@@ -202,7 +234,7 @@ int	get_map_info(t_data *data, char *file_path)
 	line = get_next_line(fd); //implicit declaration
 	if (line == NULL)
 		return (0);
-	while (line && !ft_check_header(line))
+	while (line && !check_header(line))
 	{
 		// fill_info(); remplir les infos de la map (exemple : NO)
 		free(line);

@@ -40,22 +40,22 @@
 ** We use the mlx_put_image_to_window function to put the sprites on the window.
 ** *******************************************************************/
 
-void	display_line(char *line, t_mlx *img_mlx, t_img *img, int j)
-{
-	int	i;
+// void	display_line(char *line, t_mlx *img_mlx, t_img *img, int j)
+// {
+// 	int	i;
 
-	i = 0;
-	(void)img;
-	while (line[i])
-	{
-		if (line[i] == '1')
-			ft_mlx_put_image_to_window(img_mlx, 0x000000, i * 32, j * 32);
-		else if (line[i] == '0' || line [i] == 'N' || line[i] == 'W'
-			|| line[i] == 'E' || line[i] == 'S')
-			ft_mlx_put_image_to_window(img_mlx, 0xFFFFFF, i * 32, j * 32);
-		i++;
-	}
-}
+// 	i = 0;
+// 	(void)img;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '1')
+// 			ft_mlx_put_image_to_window(img_mlx, 0x000000, i * 32, j * 32);
+// 		else if (line[i] == '0' || line [i] == 'N' || line[i] == 'W'
+// 			|| line[i] == 'E' || line[i] == 'S')
+// 			ft_mlx_put_image_to_window(img_mlx, 0xFFFFFF, i * 32, j * 32);
+// 		i++;
+// 	}
+// }
 
 /* ********************************************************************
 ** This function will put the player, the item and the exit on the map.
@@ -94,9 +94,11 @@ int	render_frame(t_data *data)
 	/*
 	while (data->map[j])
 	{
-		display_line(data->map[j], &data->img_mlx, &data->img, j);
+		display_line(data->map[j], &data->img_mlx, &data->img, j);wdsadsdaws
 		j++;
 	} Minimap */ 
+	ft_mlx_put_image(data, data->img.f_color, data->img.c_color);
+	// printf("c : %d | f : %d", data->img.c_color, data->img.f_color);
 	raycast_scene(data);
 	// display_player(data);
 	mlx_put_image_to_window(data->mlx_connection, data->mlx_window, data->img_mlx.img, 0, 0);

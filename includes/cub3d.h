@@ -22,6 +22,11 @@
 # define TEX_HEIGHT 32
 # define TEX_COUNT 4
 
+# define W 0x0077
+# define D 0x0064
+# define S 0x0073
+# define A 0x0061
+
 #define CHECK_MAP_TOP \
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
      data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
@@ -74,10 +79,12 @@ typedef struct s_sprit
 
 typedef struct s_img
 {
-	char	*path_S;   // image sol (ex: grass.xpm)
-	char	*path_W;   // image sol (ex: grass.xpm)
-	char	*path_E;   // image sol (ex: grass.xpm)
-	char	*path_N;   // image sol (ex: grass.xpm)
+	char	*path_S;   // path texture sud
+	char	*path_W;   // path texture ouest
+	char	*path_E;   // path texture est
+	char	*path_N;   // path texture nord
+	int		c_color;
+	int		f_color;
 }				t_img;
 
 typedef struct s_coordonnees
@@ -147,7 +154,7 @@ void	free_map(char **map);
 void	free_tab(char **tab);
 
 /* display_2d */
-void	display_line(char *line, t_mlx *game, t_img *img, int j);
+// void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 // int		**get_sprite(char *sprite);
@@ -156,7 +163,7 @@ int		render_frame(t_data *data);
 /* draw */
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void	ft_reset_img(t_data *img);
-void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j);
+void	ft_mlx_put_image(t_data *data, int color, int color2);
 void	ft_draw(t_mlx *img, int x, int y, int color);
 
 /*new functions*/

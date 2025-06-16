@@ -120,6 +120,11 @@ void init_data(t_data *data)
 int	*void_to_int(void *ptr)
 {
 	int bpp, sl, endian;
+	if (!ptr)
+	{
+		printf("error texture \n");
+		exit(1);
+	}
 	int *pixels = (int *)mlx_get_data_addr(ptr, &bpp, &sl, &endian);
 	return (pixels);
 }
@@ -139,10 +144,5 @@ void	load_textures(t_data *data)
 		data->img.path_W, &w, &h));
 	data->texture[3] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
 		data->img.path_E, &w, &h));
-	if (!data->texture[0] || !data->texture[1])
-	{
-		printf("error texture \n");
-		exit(1);
-	}
 	// Par exemple, tu peux ajouter d'autres textures ici
 }

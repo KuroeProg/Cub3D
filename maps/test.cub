@@ -1,10 +1,10 @@
-NO ../../sprites_cub3d/blue.xpm
-SO ../../sprites_cub3d/red.xpm
-WE ../../sprites_cub3d/yellow.xpm
-EA ../../sprites_cub3d/green.xpm
+NO sprites_cub3d/grass.xpm
+SO sprites_cub3d/water.xpm
+WE sprites_cub3d/player.xpm
+EA sprites_cub3d/exit.xpm
 
 F 164,169,20
-C 153,204,255
+C 1,204,255
 
 11111111111111111
 10000000000000001

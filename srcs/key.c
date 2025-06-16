@@ -7,22 +7,21 @@
 ** the function is actually not linked with move.c, but it will be used in the
  main.c
 ** **************************************************************************/
+
 int	handle_keypress(int keycode, void *param)
 {
-	t_data	*game;
-	// int		move;
+	t_data	*data;
 
-	game = (t_data *)param;
-	// move = 0;
+	data = (t_data *)param;
 	if (keycode == 0xff1b)
-		close_program(game);
-	// else if (keycode == 0x0077)
-	// 	move = move_player(game, 0);
-	// else if (keycode == 0x0073)
-	// 	move = move_player(game, 1);
-	// else if (keycode == 0x0061)
-	// 	move = move_player(game, 2);
-	// else if (keycode == 0x0064)
-	// 	move = move_player(game, 3);
+		close_program(data);
+	else if (keycode == 0x0077)
+		move_player(data, 0);
+	else if (keycode == 0x0073)
+		move_player(data, 1);
+	else if (keycode == 0x0061)
+		move_player(data, 2);
+	else if (keycode == 0x0064)
+		move_player(data, 3);
 	return (0);
 }

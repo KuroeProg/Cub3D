@@ -21,6 +21,8 @@
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
 # define TEX_COUNT 4
+# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 1920
 
 # define W 0x0077
 # define D 0x0064

@@ -7,10 +7,10 @@ void	ft_reset_img(t_data *img)
 
 	x = 0;
 	y = 0;
-	while (x < 1920)
+	while (x < SCREEN_WIDTH)
 	{
 		y = 0;
-		while (y < 1080)
+		while (y < SCREEN_HEIGHT)
 		{
 			my_mlx_pixel_put(&img->img_mlx, x, y, 0);
 			y++;
@@ -29,7 +29,7 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 
 void	ft_draw(t_mlx *img, int x, int y, int color)
 {
-	if ((x < 1920 && x > 0) && (y < 1080 && y > 0))
+	if ((x < SCREEN_WIDTH && x > 0) && (y < SCREEN_HEIGHT && y > 0))
 	{
 		my_mlx_pixel_put(img, x, y, color);
 	}
@@ -41,15 +41,15 @@ void	ft_mlx_put_image(t_data *data, int color, int color2)
 
 	y = 0;
 	x = 0;
-	while (y < 1080)
+	while (y < SCREEN_HEIGHT)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < SCREEN_WIDTH)
 		{
-			if (y < 1080 / 2)
-				my_mlx_pixel_put(&data->img_mlx, x, y, color);
+			if (y < SCREEN_HEIGHT / 2)
+				ft_draw(&data->img_mlx, x, y, color);
 			else
-				my_mlx_pixel_put(&data->img_mlx, x, y, color2);
+				ft_draw(&data->img_mlx, x, y, color2);
 			x++;
 		}
 		y++;

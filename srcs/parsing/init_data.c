@@ -72,8 +72,8 @@ void init_data(t_data *data)
     data->img_mlx.bits_per_pixel = 0;
     data->img_mlx.line_length = 0;
     data->img_mlx.endian = 0;
-    data->screen_width = 1920;
-    data->screen_height = 1080;
+    data->screen_width = SCREEN_WIDTH;
+    data->screen_height = SCREEN_HEIGHT;
     data->map = NULL;
     data->player_x = 0;
     data->player_y = 0;

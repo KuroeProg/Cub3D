@@ -53,7 +53,7 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
         tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
         tex_pos += step;
         color = data->texture[d->tex_num][TEX_WIDTH * tex_y + tex_x];
-        ft_draw(&data->img_mlx, x, y, color);
+        my_mlx_pixel_put(&data->img_mlx, x, y, color);
         y++;
     }
 }

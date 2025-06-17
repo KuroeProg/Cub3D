@@ -34,6 +34,7 @@ void	ft_draw(t_mlx *img, int x, int y, int color)
 		my_mlx_pixel_put(img, x, y, color);
 	}
 }
+
 void	ft_mlx_put_image(t_data *data, int color, int color2)
 {
 	int	y;
@@ -47,9 +48,9 @@ void	ft_mlx_put_image(t_data *data, int color, int color2)
 		while (x < SCREEN_WIDTH)
 		{
 			if (y < SCREEN_HEIGHT / 2)
-				ft_draw(&data->img_mlx, x, y, color);
+				my_mlx_pixel_put(&data->img_mlx, x, y, color);
 			else
-				ft_draw(&data->img_mlx, x, y, color2);
+				my_mlx_pixel_put(&data->img_mlx, x, y, color2);
 			x++;
 		}
 		y++;

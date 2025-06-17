@@ -1,12 +1,20 @@
 #include "../includes/cub3d.h"
 #include <math.h>
 
+double	ft_fabs(double nb)
+{
+	if (nb < 0)
+		return (-nb);
+	else
+		return (nb);
+}
+
 void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y)
 {
     d->map_x = (int)pos_x;
     d->map_y = (int)pos_y;
-    d->delta_x = fabs(1.0 / dir_x);
-    d->delta_y = fabs(1.0 / dir_y);
+    d->delta_x = ft_fabs(1.0 / dir_x);
+    d->delta_y = ft_fabs(1.0 / dir_y);
     d->hit = 0;
     if (dir_x < 0)
     {

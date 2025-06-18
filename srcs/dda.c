@@ -56,6 +56,11 @@ void	perform_dda(t_data *data, t_dda *d)
         }
         if (data->map[d->map_y][d->map_x] == '1')
             d->hit = 1;
+		if (data->map[d->map_y][d->map_x] == 'D')
+		{
+            d->hit = 1;
+			d->door = 1;
+		}
     }
 }
 

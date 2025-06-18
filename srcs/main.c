@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 		return (printf("Error\nUsage: ./cub3d [map.ber]\n"), 1);
 	//check validation map + parsing
 	if (!get_map_info(&data, argv[1]))
-		ft_printf(1, "Invalide\n");
+		return (ft_printf(1, "Invalide\n"), 0);
 	else
 		ft_printf(1, "Valide\n");
 	//affichage de la map recu, dans le terminal

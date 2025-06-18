@@ -15,14 +15,15 @@
 #define SO 1
 #define WE 2
 #define EA 3
+#define DOOR 4
 #define C  [int] //couleur ciel
 #define F  [int] //couleur plafond
 
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
-# define TEX_COUNT 4
-# define SCREEN_HEIGHT 2160
-# define SCREEN_WIDTH 3840
+# define TEX_COUNT 5
+# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 1920
 
 # define W 0x0077
 # define D 0x0064
@@ -34,20 +35,32 @@
 
 #define CHECK_MAP_TOP \
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
-     data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
-     data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W')
+    data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
+	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
+    data->map[j - 1][i] == 'D')
 #define CHECK_MAP_DOWN \
     (data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
-     data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
-     data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W')
+    data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
+	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
+    data->map[j + 1][i] == 'D')
 #define CHECK_MAP_LEFT \
     (data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
      data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
-     data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W')
+     data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
+	 data->map[j][i - 1] == 'D')
 #define CHECK_MAP_RIGHT \
     (data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
      data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
-     data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W')
+     data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
+	 data->map[j][i + 1] == 'D')
+
+#define CHECK_VERTICAL_DOOR \
+    (data->map[j][i + 1] == '1' && data->map[j][i - 1] == '1' && \
+     data->map[j + 1][i] == '0' && data->map[j - 1][i] == '0')
+
+#define CHECK_HORIZONTAL_DOOR \
+    (data->map[j][i + 1] == '0' && data->map[j][i - 1] == '0' && \
+     data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1')
 
 typedef struct s_dda
 {
@@ -64,6 +77,7 @@ typedef struct s_dda
     double	ray_dir_x;
     double	ray_dir_y;
     int		tex_num;
+	int		door;
 }	t_dda;
 
 typedef struct s_img
@@ -100,13 +114,14 @@ typedef struct s_data
 	float	rad;
     double	plane_x;
     double	plane_y;
-    int     *texture[4];
+    int     *texture[5];
     int		map_width;
     int		map_height;
     int		player_start_x;
     int		player_start_y;
     int		i;
     int		j;
+	char	*draw;
     t_img	img;
 	t_dda   *dda;
 }	t_data;

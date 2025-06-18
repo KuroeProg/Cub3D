@@ -257,6 +257,54 @@ int	get_map_info(t_data *data, char *file_path)
 	return (1); //if everything is good.
 }
 
+int check_door(t_data *data, int i, int j)
+{
+    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
+        return (0);
+    if (data->map[j - 1][i] == ' ' || data->map[j - 1][i] == '\0')
+        return (0);
+    if (data->map[j + 1][i] == ' ' || data->map[j + 1][i] == '\0')
+        return (0);
+    if (data->map[j][i - 1] == ' ' || data->map[j][i - 1] == '\0')
+        return (0);
+    if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
+        return (0);
+    if (!(CHECK_MAP_TOP))
+        return (0);
+    if (!(CHECK_MAP_DOWN))
+        return (0);
+    if (!(CHECK_MAP_LEFT))
+        return (0);
+    if (!(CHECK_MAP_RIGHT))
+		return (0);
+	if (!CHECK_HORIZONTAL_DOOR && !CHECK_VERTICAL_DOOR)
+		return (0);
+    return (1);
+}
+
+int check_borders(t_data *data, int i, int j)
+{
+    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
+        return (0);
+    if (data->map[j - 1][i] == ' ' || data->map[j - 1][i] == '\0')
+        return (0);
+    if (data->map[j + 1][i] == ' ' || data->map[j + 1][i] == '\0')
+        return (0);
+    if (data->map[j][i - 1] == ' ' || data->map[j][i - 1] == '\0')
+        return (0);
+    if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
+        return (0);
+    if (!(CHECK_MAP_TOP))
+        return (0);
+    if (!(CHECK_MAP_DOWN))
+        return (0);
+    if (!(CHECK_MAP_LEFT))
+        return (0);
+    if (!(CHECK_MAP_RIGHT))
+        return (0);
+    return (1);
+}
+
 int ft_parsing(t_data *data)
 {
 	int	i;
@@ -276,6 +324,12 @@ int ft_parsing(t_data *data)
 			{
 				if (check_borders(data, i, j) == 0)
 					return (printf("parsing error 1\n"), 0);
+				i++;
+			}
+			else if (data->map[j][i] == 'D')
+			{
+				if (check_door(data, i, j) == 0)
+					return (printf("parsing error 3\n"), 0);
 				i++;
 			}
 			else if (data->map[j][i] != '1' && data->map[j][i] != ' ' &&
@@ -302,27 +356,4 @@ int ft_parsing(t_data *data)
 	// if (!flood_fill(data->map, data, i, j))
 	// 	return (printf("parsing error\n"), 0);
 	return (1);
-}
-
-int check_borders(t_data *data, int i, int j)
-{
-    if (i == 0 || j == 0 || i == data->map_width - 1 || j == data->map_height - 1)
-        return (0);
-    if (data->map[j - 1][i] == ' ' || data->map[j - 1][i] == '\0')
-        return (0);
-    if (data->map[j + 1][i] == ' ' || data->map[j + 1][i] == '\0')
-        return (0);
-    if (data->map[j][i - 1] == ' ' || data->map[j][i - 1] == '\0')
-        return (0);
-    if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
-        return (0);
-    if (!(CHECK_MAP_TOP))
-        return (0);
-    if (!(CHECK_MAP_DOWN))
-        return (0);
-    if (!(CHECK_MAP_LEFT))
-        return (0);
-    if (!(CHECK_MAP_RIGHT))
-        return (0);
-    return (1);
 }

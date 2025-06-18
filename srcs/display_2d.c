@@ -90,13 +90,14 @@ int	render_frame(t_data *data)
 	// j = 0;
 	if (!data->map || !data->mlx_connection || !data->mlx_window)
 		return (0);
+	data->draw = data->img_mlx.addr;
 	// ft_reset_img(data);
 	/*
 	while (data->map[j])
 	{
 		display_line(data->map[j], &data->img_mlx, &data->img, j);wdsadsdaws
 		j++;
-	} Minimap */ 
+	} Minimap */
 	ft_mlx_put_image(data, data->img.f_color, data->img.c_color);
 	// printf("c : %d | f : %d", data->img.c_color, data->img.f_color);
 	raycast_scene(data);

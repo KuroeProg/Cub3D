@@ -1,6 +1,12 @@
 #include "../includes/cub3d.h"
 #include <math.h>
 
+void	draw_pixel(t_mlx *img_mlx, char *ptr, int color, int y)
+{
+	ptr += y * img_mlx->line_length;
+	*(unsigned int *)ptr = color;
+}
+
 void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
 {
     int		line_height = 0;
@@ -13,7 +19,10 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
     double	step = 0;
     double	tex_pos = 0;
     int		color = 0;
+	// char	*ptr;
 
+	(void)x;
+	data->draw += ((&data->img_mlx)->bits_per_pixel / 8);
     line_height = (int)(data->screen_height / perp_wall_dist);
     draw_start = -line_height / 2 + data->screen_height / 2;
 	//ne depasse pas le bas de l'ecran
@@ -39,6 +48,8 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
    		d->tex_num = SO;
 	else if (d->side == 1 && d->ray_dir_y <= 0)
     	d->tex_num = NO;
+	else if (d->door == 1)
+    	d->tex_num = DOOR;
     tex_x = (int)(wall_x * 32.0);
     if (d->side == 0 && d->ray_dir_x > 0)
         tex_x = TEX_WIDTH - tex_x - 1;
@@ -53,7 +64,8 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
         tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
         tex_pos += step;
         color = data->texture[d->tex_num][TEX_WIDTH * tex_y + tex_x];
-        my_mlx_pixel_put(&data->img_mlx, x, y, color);
+		draw_pixel(&data->img_mlx, data->draw, color, y);
+        // my_mlx_pixel_put(&data->img_mlx, x, y, color);
         y++;
     }
 }

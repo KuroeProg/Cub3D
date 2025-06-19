@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 			&data.img_mlx.bits_per_pixel, &data.img_mlx.line_length, &data.img_mlx.endian);
 	mlx_hook(data.mlx_window, 2, (1L << 0), handle_keypress, &data);
 	mlx_loop_hook(data.mlx_connection, render_frame, &data);
+	mlx_hook(data.mlx_window, 6, 1L << 6, mouse_move, &data);
 	mlx_hook(data.mlx_window, 17, 0, close_program, &data);
 	mlx_loop(data.mlx_connection);
 	close_program(&data);

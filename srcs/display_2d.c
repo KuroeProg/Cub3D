@@ -88,6 +88,8 @@ int	render_frame(t_data *data)
 	// int	j;
 
 	// j = 0;
+	if (!data->check_move)
+		return (0);
 	if (!data->map || !data->mlx_connection || !data->mlx_window)
 		return (0);
 	data->draw = data->img_mlx.addr;
@@ -105,5 +107,6 @@ int	render_frame(t_data *data)
 	mlx_put_image_to_window(data->mlx_connection, data->mlx_window, data->img_mlx.img, 0, 0);
 	// ft_mlx_put_image_to_window(data->mlx_connection, data->mlx_window,
 	// 	data->img.img_player, data->player_x * 32, data->player_y * 32);
+	data->check_move = 0;
 	return (0);
 }

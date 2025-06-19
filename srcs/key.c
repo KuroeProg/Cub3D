@@ -27,5 +27,6 @@ int	handle_keypress(int keycode, void *param)
 		cam_player(data, 0);
 	else if (keycode == E)
 		cam_player(data, 1);
+	data->check_move = 1;
 	return (0);
 }

@@ -33,33 +33,35 @@
 # define E 0x0065
 # define PI 3.1415
 
-#define CHECK_MAP_TOP \
+# define ORI 'W' || 'E' || 'N' || 'S' || '0'
+
+# define CHECK_MAP_TOP \
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
     data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
 	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
     data->map[j - 1][i] == 'D')
-#define CHECK_MAP_DOWN \
+# define CHECK_MAP_DOWN \
     (data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
     data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
 	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
     data->map[j + 1][i] == 'D')
-#define CHECK_MAP_LEFT \
+# define CHECK_MAP_LEFT \
     (data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
      data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
      data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
 	 data->map[j][i - 1] == 'D')
-#define CHECK_MAP_RIGHT \
+# define CHECK_MAP_RIGHT \
     (data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
      data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
      data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
 	 data->map[j][i + 1] == 'D')
 
-#define CHECK_VERTICAL_DOOR \
+# define CHECK_VERTICAL_DOOR \
     (data->map[j][i + 1] == '1' && data->map[j][i - 1] == '1' && \
-     data->map[j + 1][i] == '0' && data->map[j - 1][i] == '0')
+     data->map[j + 1][i] == ORI && data->map[j - 1][i] == ORI)
 
-#define CHECK_HORIZONTAL_DOOR \
-    (data->map[j][i + 1] == '0' && data->map[j][i - 1] == '0' && \
+# define CHECK_HORIZONTAL_DOOR \
+    (data->map[j][i + 1] == ORI && data->map[j][i - 1] == ORI && \
      data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1')
 
 typedef struct s_dda
@@ -121,9 +123,12 @@ typedef struct s_data
     int		player_start_y;
     int		i;
     int		j;
+	int		prev_x;
+	float	rotation_speed;
 	char	*draw;
     t_img	img;
 	t_dda   *dda;
+	int		check_move;
 }	t_data;
 
 /* parsing */
@@ -157,6 +162,7 @@ void	free_tab(char **tab);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 void	move_player(t_data *data, int move);
+int	mouse_move(int x, int y, t_data *data);
 void	cam_player(t_data *data, int cam);
 // int		**get_sprite(char *sprite);
 // void	display_map_color(int **data);

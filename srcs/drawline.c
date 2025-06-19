@@ -48,7 +48,7 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
    		d->tex_num = SO;
 	else if (d->side == 1 && d->ray_dir_y <= 0)
     	d->tex_num = NO;
-	else if (d->door == 1)
+	if (d->door == 1)
     	d->tex_num = DOOR;
     tex_x = (int)(wall_x * 32.0);
     if (d->side == 0 && d->ray_dir_x > 0)

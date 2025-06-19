@@ -61,6 +61,8 @@ void	perform_dda(t_data *data, t_dda *d)
             d->hit = 1;
 			d->door = 1;
 		}
+		else
+			d->door = 0;
     }
 }
 

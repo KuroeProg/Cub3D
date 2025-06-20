@@ -52,6 +52,8 @@ void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d)
     	d->tex_num = DOOR;
 	if (d->door == 2)
     	d->tex_num = 5;
+	if (d->door == 3)
+    	d->tex_num = 6;
     tex_x = (int)(wall_x * 64.0);
     if (d->side == 0 && d->ray_dir_x > 0)
         tex_x = TEX_WIDTH - tex_x - 1;

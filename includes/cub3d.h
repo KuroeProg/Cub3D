@@ -38,22 +38,22 @@
     (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
     data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
 	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
-    data->map[j - 1][i] == 'D')
+    data->map[j - 1][i] == 'C')
 # define CHECK_MAP_DOWN \
     (data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
     data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
 	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
-    data->map[j + 1][i] == 'D')
+    data->map[j + 1][i] == 'C')
 # define CHECK_MAP_LEFT \
     (data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
      data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
      data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
-	 data->map[j][i - 1] == 'D')
+	 data->map[j][i - 1] == 'C')
 # define CHECK_MAP_RIGHT \
     (data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
      data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
      data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
-	 data->map[j][i + 1] == 'D')
+	 data->map[j][i + 1] == 'C')
 
 # define CHECK_VERTICAL_DOOR \
     (data->map[j][i + 1] == '1' && data->map[j][i - 1] == '1' && \
@@ -115,7 +115,7 @@ typedef struct s_data
 	float	rad;
     double	plane_x;
     double	plane_y;
-    int     *texture[6];
+    int     *texture[7];
     int		map_width;
     int		map_height;
     int		player_start_x;

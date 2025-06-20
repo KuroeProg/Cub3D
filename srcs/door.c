@@ -19,6 +19,13 @@ double	raycast_door(t_data *data, t_dda *d)
     // draw_vertical_line(data, x, perp_wall_dist, &d);
 }
 
+void	animate_door(t_data *data, t_dda *d, char etat)
+{
+	data->map[d->map_y][d->map_x] = 'D';
+	data->check_move = 1;
+	render_frame(data);
+	data->map[d->map_y][d->map_x] = etat;
+}
 
 void	open_door(t_data *data)
 {
@@ -29,9 +36,10 @@ void	open_door(t_data *data)
 	if (d.door)
 	{
 		if (d.door == 1 && dist < 1.00)
-			data->map[d.map_y][d.map_x] = 'O';
+			animate_door(data, &d, 'O');
 		else if (d.door == 2 && dist < 1.00)
-			data->map[d.map_y][d.map_x] = 'D';
+			animate_door(data, &d, 'C');
+		
 		printf("dist : %f\n", dist);
 	}
 }

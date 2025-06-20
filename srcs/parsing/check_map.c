@@ -323,10 +323,10 @@ int ft_parsing(t_data *data)
 			else if (data->map[j][i] == '0')
 			{
 				if (check_borders(data, i, j) == 0)
-					return (printf("parsing error 1\n"), 0);
+					return (printf("parsing error 1 y : %d x : %d\n", j, i), 0);
 				i++;
 			}
-			else if (data->map[j][i] == 'D')
+			else if (data->map[j][i] == 'C')
 			{
 				if (check_door(data, i, j) == 0)
 					return (printf("parsing error 3\n"), 0);

@@ -5,6 +5,7 @@ int	close_program(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
+	mlx_mouse_show(data->mlx_connection, data->mlx_window);
 	free_game(data);
 	exit(0);
 	return (0);
@@ -30,6 +31,7 @@ int main(int argc, char **argv)
 	//affichage de la map en 2D avec la minilibx
 	data.mlx_window = mlx_new_window(data.mlx_connection,
 		data.screen_width, data.screen_height, "cub3d");
+	// mlx_mouse_hide(data.mlx_connection, data.mlx_window);
 	data.img_mlx.img = mlx_new_image(data.mlx_connection, data.screen_width, data.screen_height);
 	data.img_mlx.addr = mlx_get_data_addr(data.img_mlx.img,
 			&data.img_mlx.bits_per_pixel, &data.img_mlx.line_length, &data.img_mlx.endian);

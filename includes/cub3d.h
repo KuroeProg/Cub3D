@@ -16,8 +16,6 @@
 #define WE 2
 #define EA 3
 #define DOOR 4
-#define C  [int] //couleur ciel
-#define F  [int] //couleur plafond
 
 # define TEX_WIDTH 32
 # define TEX_HEIGHT 32
@@ -31,6 +29,7 @@
 # define A 0x0061
 # define Q 0x0071
 # define E 0x0065
+# define F 0x0066
 # define PI 3.1415
 
 # define ORI 'W' || 'E' || 'N' || 'S' || '0'
@@ -116,7 +115,7 @@ typedef struct s_data
 	float	rad;
     double	plane_x;
     double	plane_y;
-    int     *texture[5];
+    int     *texture[6];
     int		map_width;
     int		map_height;
     int		player_start_x;
@@ -129,6 +128,9 @@ typedef struct s_data
     t_img	img;
 	t_dda   *dda;
 	int		check_move;
+	int		check_door;
+	int		x_door;
+	int		y_door;
 }	t_data;
 
 /* parsing */
@@ -164,6 +166,7 @@ int		render_frame(t_data *data);
 void	move_player(t_data *data, int move);
 int	mouse_move(int x, int y, t_data *data);
 void	cam_player(t_data *data, int cam);
+void	open_door(t_data *data);
 // int		**get_sprite(char *sprite);
 // void	display_map_color(int **data);
 

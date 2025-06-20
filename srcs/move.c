@@ -27,7 +27,7 @@ int	valid_move(t_data *data, int move)
 		x = data->player_x - data->dir_y * 0.04;
 		y = data->player_y + data->dir_x * 0.04;
 	}
-	if (data->map[(int)y][(int)x] == '1')
+	if (data->map[(int)y][(int)x] == '1' || data->map[(int)y][(int)x] == 'D')
 		return (0);
 	else
 		return (1);

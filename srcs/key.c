@@ -27,6 +27,8 @@ int	handle_keypress(int keycode, void *param)
 		cam_player(data, 0);
 	else if (keycode == E)
 		cam_player(data, 1);
+	else if (keycode == F)
+		open_door(data);
 	data->check_move = 1;
 	return (0);
 }

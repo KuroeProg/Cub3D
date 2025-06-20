@@ -64,15 +64,20 @@ void initialize_mlx(t_mlx *mlx)
 	mlx->endian = 0;
 }
 
-void init_data(t_data *data)
+void	init_data_mlx(t_data *data)
 {
-    data->mlx_connection = NULL;
+	data->mlx_connection = NULL;
     data->mlx_window = NULL;
-    data->img_mlx.img = NULL;
+	data->img_mlx.img = NULL;
     data->img_mlx.addr = NULL;
     data->img_mlx.bits_per_pixel = 0;
     data->img_mlx.line_length = 0;
     data->img_mlx.endian = 0;
+}
+
+void	init_data(t_data *data)
+{
+	init_data_mlx(data);
     data->screen_width = SCREEN_WIDTH;
     data->screen_height = SCREEN_HEIGHT;
     data->map = NULL;

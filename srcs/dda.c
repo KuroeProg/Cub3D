@@ -38,21 +38,23 @@ void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y)
     }
 }
 
-// void	check_hit(t_data *data, t_dda *d)
-// {
-// 	if (data->map[d->map_y][d->map_x] == '1')
-//     	d->hit = 1;
-// 	if (data->map[d->map_y][d->map_x] == 'D' || data->map[d->map_y][d->map_x] == 'O')
-// 	{
-// 		if (data->map[d->map_y][d->map_x] == 'D')
-// 			d->door = 1;
-// 		else
-// 			d->door = 2;
-//         d->hit = 1;
-// 	}
-// 	else
-// 		d->door = 0;
-// }
+void	check_hit(t_data *data, t_dda *d)
+{
+	if (data->map[d->map_y][d->map_x] == '1')
+    	d->hit = 1;
+	if (data->map[d->map_y][d->map_x] == 'C' || data->map[d->map_y][d->map_x] == 'O' || data->map[d->map_y][d->map_x] == 'D')
+	{
+		if (data->map[d->map_y][d->map_x] == 'C')
+			d->door = 1;
+		else if (data->map[d->map_y][d->map_x] == 'O')
+			d->door = 2;
+		else
+			d->door = 3;
+    	d->hit = 1;
+	}
+	else
+		d->door = 0;
+}
 
 void	perform_dda(t_data *data, t_dda *d)
 {
@@ -70,21 +72,7 @@ void	perform_dda(t_data *data, t_dda *d)
             d->map_y += d->step_y;
             d->side = 1;
         }
-		// check_hit(data, d);
-		if (data->map[d->map_y][d->map_x] == '1')
-    		d->hit = 1;
-		if (data->map[d->map_y][d->map_x] == 'C' || data->map[d->map_y][d->map_x] == 'O' || data->map[d->map_y][d->map_x] == 'D')
-		{
-			if (data->map[d->map_y][d->map_x] == 'C')
-				d->door = 1;
-			else if (data->map[d->map_y][d->map_x] == 'O')
-				d->door = 2;
-			else
-				d->door = 3;
-        	d->hit = 1;
-		}
-	else
-		d->door = 0;
+		check_hit(data, d);
     }
 }
 
@@ -92,8 +80,6 @@ void	raycast_scene(t_data *data)
 {
     int		x;
     double	camera_x;
-    // double	ray_dir_x;
-    // double	ray_dir_y;
     double	perp_wall_dist;
     t_dda	d;
 
@@ -109,7 +95,7 @@ void	raycast_scene(t_data *data)
             perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / d.ray_dir_x;
         else
             perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / d.ray_dir_y;
-        draw_vertical_line(data, x, perp_wall_dist, &d);
+        draw_vertical_line(data, perp_wall_dist, &d);
         x++;
     }
 }

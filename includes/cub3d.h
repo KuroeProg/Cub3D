@@ -63,6 +63,21 @@
     (data->map[j][i + 1] == ORI && data->map[j][i - 1] == ORI && \
      data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1')
 
+typedef	struct s_draw_line
+{
+	int		line_height;
+    int		draw_start;
+    int		draw_end;
+    int		y;
+    double	wall_x;
+    int		tex_x;
+    int		tex_y;
+    double	step ;
+    double	tex_pos;
+    int		color;
+}					t_dwl;
+
+
 typedef struct s_dda
 {
     int		map_x;
@@ -180,7 +195,7 @@ void	ft_draw(t_mlx *img, int x, int y, int color);
 void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y);
 void	perform_dda(t_data *data, t_dda *d);
 void	raycast_scene(t_data *data);
-void	draw_vertical_line(t_data *data, int x, double perp_wall_dist, t_dda *d);
+void	draw_vertical_line(t_data *data, double perp_wall_dist, t_dda *d);
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void	load_textures(t_data *game);
 

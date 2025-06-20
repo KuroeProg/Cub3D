@@ -1,3 +1,4 @@
+
 #include "../../includes/cub3d.h"
 
 // #include "../.minilibx-linux/mlx.h"
@@ -187,15 +188,13 @@ int	get_map(t_data *data, char *file_path)
 		return (0);
 	while (line && !check_header(line))
 	{
-		// fill_info(); remplir les infos de la map (exemple : NO)
 		fill_path_text(line, data);
 		free(line);
 		line = get_next_line(fd);
 	}
 	while (line != NULL && data->map[i] && i < data->map_height)
 	{
-		strcpy_cube(data->map[i], line, data->map_width);
-		i++;
+		strcpy_cube(data->map[i++], line, data->map_width);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -353,7 +352,5 @@ int ft_parsing(t_data *data)
 	}
 	if (count != 1)
 		return (printf("parsing error 3 %d\n", count), 0);
-	// if (!flood_fill(data->map, data, i, j))
-	// 	return (printf("parsing error\n"), 0);
 	return (1);
 }

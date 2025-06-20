@@ -1,12 +1,7 @@
 #include "../includes/cub3d.h"
 
-int	valid_move(t_data *data, int move)
+int	valid_move(t_data *data, int move, float x, float y)
 {
-	float x;
-	float y;
-
-	x = 0;
-	y = 0;
 	if (move == 0)
 	{
 		x = data->player_x + data->dir_x * 0.04;
@@ -35,22 +30,22 @@ int	valid_move(t_data *data, int move)
 
 void	move_player(t_data *data, int move)
 {
-	if (move == 0 && valid_move(data, 0))
+	if (move == 0 && valid_move(data, 0, 0 ,0))
 	{
 		data->player_x += data->dir_x * 0.04;
 		data->player_y += data->dir_y * 0.04;
 	}
-	else if (move == 1 && valid_move(data, 1))
+	else if (move == 1 && valid_move(data, 1, 0, 0))
 	{
 		data->player_x -= data->dir_x * 0.04;
 		data->player_y -= data->dir_y * 0.04;
 	}
-	else if (move == 2 && valid_move(data, 2))
+	else if (move == 2 && valid_move(data, 2, 0, 0))
 	{
 		data->player_x += data->dir_y * 0.04;
 		data->player_y -= data->dir_x * 0.04;
 	}
-	else if (move == 3 && valid_move(data, 3))
+	else if (move == 3 && valid_move(data, 3, 0, 0))
 	{
 		data->player_x -= data->dir_y * 0.04;
 		data->player_y += data->dir_x * 0.04;
@@ -61,7 +56,6 @@ void	cam_player(t_data *data, int cam)
 {
 	if (cam == 0)
 	{ 
-		// data->rad -= PI/64;
 		data->dir_x += data->dir_y * (PI / 64);
 		data->dir_y += -data->dir_x * (PI / 64);
 		data->plane_x = -data->dir_y * 0.66;
@@ -69,7 +63,6 @@ void	cam_player(t_data *data, int cam)
 	}
 	else if (cam == 1)
 	{
-		// data->rad += PI/64;
 		data->dir_x += -data->dir_y * (PI / 64);
 		data->dir_y += data->dir_x * (PI / 64);
 		data->plane_x = -data->dir_y * 0.66;

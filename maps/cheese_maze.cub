@@ -1,7 +1,7 @@
-NO sprites_cub3d/grass.xpm
-SO sprites_cub3d/water.xpm
-WE sprites_cub3d/player.xpm
-EA sprites_cub3d/exit.xpm
+NO final_sprites_cub3d/Wall1.xpm
+SO final_sprites_cub3d/wall2.xpm
+WE final_sprites_cub3d/locker.xpm
+EA final_sprites_cub3d/Window.xpm
 
 F 164,169,20
 C 153,204,255

@@ -17,8 +17,8 @@
 #define EA 3
 #define DOOR 4
 
-# define TEX_WIDTH 32
-# define TEX_HEIGHT 32
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 # define TEX_COUNT 5
 # define SCREEN_HEIGHT 1080
 # define SCREEN_WIDTH 1920

@@ -38,6 +38,22 @@ void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y)
     }
 }
 
+// void	check_hit(t_data *data, t_dda *d)
+// {
+// 	if (data->map[d->map_y][d->map_x] == '1')
+//     	d->hit = 1;
+// 	if (data->map[d->map_y][d->map_x] == 'D' || data->map[d->map_y][d->map_x] == 'O')
+// 	{
+// 		if (data->map[d->map_y][d->map_x] == 'D')
+// 			d->door = 1;
+// 		else
+// 			d->door = 2;
+//         d->hit = 1;
+// 	}
+// 	else
+// 		d->door = 0;
+// }
+
 void	perform_dda(t_data *data, t_dda *d)
 {
     while (d->hit == 0)
@@ -54,18 +70,19 @@ void	perform_dda(t_data *data, t_dda *d)
             d->map_y += d->step_y;
             d->side = 1;
         }
-        if (data->map[d->map_y][d->map_x] == '1')
-            d->hit = 1;
+		// check_hit(data, d);
+		if (data->map[d->map_y][d->map_x] == '1')
+    		d->hit = 1;
 		if (data->map[d->map_y][d->map_x] == 'D' || data->map[d->map_y][d->map_x] == 'O')
 		{
 			if (data->map[d->map_y][d->map_x] == 'D')
 				d->door = 1;
 			else
 				d->door = 2;
-            d->hit = 1;
+        	d->hit = 1;
 		}
-		else
-			d->door = 0;
+	else
+		d->door = 0;
     }
 }
 

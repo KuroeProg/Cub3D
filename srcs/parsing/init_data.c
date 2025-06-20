@@ -126,8 +126,8 @@ void	load_textures(t_data *data)
 	data->texture[3] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
 		data->img.path_E, &w, &h));
 	data->texture[4] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-	"sprites_cub3d/item.xpm", &w, &h));
+	"final_sprites_cub3d/porte1.xpm", &w, &h));
 	data->texture[5] = void_to_int(mlx_xpm_file_to_image(data->mlx_connection,
-	"sprites_cub3d/green.xpm", &w, &h));
+	"final_sprites_cub3d/porte3.xpm", &w, &h));
 	// Par exemple, tu peux ajouter d'autres textures ici
 }

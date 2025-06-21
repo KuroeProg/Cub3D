@@ -16,15 +16,20 @@ double	raycast_door(t_data *data, t_dda *d)
         return((d->map_x - data->player_x + (1 - d->step_x) / 2) / d->ray_dir_x);
     else
         return((d->map_y - data->player_y + (1 - d->step_y) / 2) / d->ray_dir_y);
-    // draw_vertical_line(data, x, perp_wall_dist, &d);
 }
 
 void	animate_door(t_data *data, t_dda *d, char etat)
 {
+	t_nx_f	*door;
+
+	door = malloc(sizeof(t_nx_f));
 	data->map[d->map_y][d->map_x] = 'D';
 	data->check_move = 1;
-	render_frame(data);
-	data->map[d->map_y][d->map_x] = etat;
+	door->count = ANIME_SPEED;
+	door->etat = etat;
+	door->x = d->map_x;
+	door->y = d->map_y;
+	data->door = door;
 }
 
 void	open_door(t_data *data)
@@ -39,7 +44,5 @@ void	open_door(t_data *data)
 			animate_door(data, &d, 'O');
 		else if (d.door == 2 && dist < 1.00)
 			animate_door(data, &d, 'C');
-		
-		printf("dist : %f\n", dist);
 	}
 }

@@ -22,6 +22,7 @@
 # define TEX_COUNT 5
 # define SCREEN_HEIGHT 1080
 # define SCREEN_WIDTH 1920
+# define ANIME_SPEED 20
 
 # define W 0x0077
 # define D 0x0064
@@ -115,6 +116,14 @@ typedef struct s_mlx
 	int		endian;
 } t_mlx;
 
+typedef struct s_next_frame
+{
+	int		x;
+	int		y;
+	char	etat;
+	int		count;
+} 					t_nx_f;
+
 typedef struct s_data
 {
     void	*mlx_connection;
@@ -146,6 +155,7 @@ typedef struct s_data
 	int		check_door;
 	int		x_door;
 	int		y_door;
+	t_nx_f	*door;
 }	t_data;
 
 /* parsing */
@@ -186,17 +196,14 @@ void	open_door(t_data *data);
 // void	display_map_color(int **data);
 
 /* draw */
-void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
-void	ft_reset_img(t_data *img);
 void	ft_mlx_put_image(t_data *data, int color, int color2);
-void	ft_draw(t_mlx *img, int x, int y, int color);
+void	draw_pixel(t_mlx *img_mlx, char *ptr, int color, int y);
 
 /*new functions*/
 void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y);
 void	perform_dda(t_data *data, t_dda *d);
 void	raycast_scene(t_data *data);
 void	draw_vertical_line(t_data *data, double perp_wall_dist, t_dda *d);
-void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void	load_textures(t_data *game);
 
 #endif // CUB3D_H

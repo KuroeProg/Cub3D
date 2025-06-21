@@ -100,6 +100,7 @@ void	init_data(t_data *data)
 	data->check_move = 1;
 	data->prev_x = SCREEN_WIDTH / 2;
 	data->rotation_speed = 0.05;
+	data->door = NULL;
     initialize_img(&data->img);
 }
 

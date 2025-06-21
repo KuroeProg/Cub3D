@@ -92,21 +92,33 @@ int	render_frame(t_data *data)
 		return (0);
 	if (!data->map || !data->mlx_connection || !data->mlx_window)
 		return (0);
+	if (data->door)
+	{
+		data->door->count--;
+		if (data->door->count == 0)
+		{
+			data->map[data->door->y][data->door->x] = data->door->etat;
+			free(data->door);
+			data->door = NULL;
+		}
+	}
 	data->draw = data->img_mlx.addr;
 	// ft_reset_img(data);
 	/*
 	while (data->map[j])
 	{
-		display_line(data->map[j], &data->img_mlx, &data->img, j);wdsadsdaws
+		display_line(data->map[j], &data->img_mlx, &data->img, j);
 		j++;
 	} Minimap */
 	ft_mlx_put_image(data, data->img.f_color, data->img.c_color);
 	// printf("c : %d | f : %d", data->img.c_color, data->img.f_color);
+	data->draw = data->img_mlx.addr;
 	raycast_scene(data);
 	// display_player(data);
 	mlx_put_image_to_window(data->mlx_connection, data->mlx_window, data->img_mlx.img, 0, 0);
 	// ft_mlx_put_image_to_window(data->mlx_connection, data->mlx_window,
 	// 	data->img.img_player, data->player_x * 32, data->player_y * 32);
-	data->check_move = 0;
+	if (!data->door)
+		data->check_move = 0;
 	return (0);
 }

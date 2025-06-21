@@ -15,7 +15,7 @@ NAME = cub3d
 INCLUDE = ./includes/
 
 CC = cc
-CFLAG = -Wall -Wextra -Werror -g
+CFLAG = -Wall -Wextra -Werror -g -O3
 
 SRCS =./srcs/parsing/check_map.c ./srcs/parsing/init_data.c ./srcs/display_2d.c \
 ./srcs/main.c ./srcs/free_mlx.c ./srcs/key.c ./srcs/draw.c ./srcs/move.c\

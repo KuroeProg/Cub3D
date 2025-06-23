@@ -5,44 +5,56 @@ void	color_to_pixel(char *ptr, int color)
 	*(unsigned int *)ptr = color;
 }
 
-void	ft_mlx_put_image(t_data *data, int color, int color2)
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	int	y;
-	int	x;
+	char	*dst;
 
-	y = 0;
-	x = 0;
-	while (y < SCREEN_HEIGHT)
+	if ((x > 0 && x < SCREEN_WIDTH) && (y > 0 && y < SCREEN_HEIGHT))
 	{
-		x = 0;
-		while (x < SCREEN_WIDTH)
-		{
-			if (y < SCREEN_HEIGHT / 2)
-				color_to_pixel(data->draw, color);
-			else
-				color_to_pixel(data->draw, color2);
-			data->draw += ((&data->img_mlx)->bits_per_pixel / 8);
-			x++;
-		}
-		y++;
+		dst = data->img_mlx.addr + (y * data->img_mlx.line_length + x * (data->img_mlx.bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
 	}
 }
 
-// void	ft_mlx_put_image_to_window(t_mlx *window, int color, int i, int j)
+// void	ft_mlx_put_image(t_data *data, int color, int color2)
 // {
-// 	int	k;
-// 	int	l;
+// 	int	y;
+// 	int	x;
 
-// 	k = 0;
-// 	l = 0;
-// 	while (k < 32)
+// 	y = 0;
+// 	x = 0;
+// 	while (y < SCREEN_HEIGHT)
 // 	{
-// 		l = 0;
-// 		while (l < 32)
+// 		x = 0;
+// 		while (x < SCREEN_WIDTH)
 // 		{
-// 			ft_draw(window, i + l, j + k, color);
-// 			l++;
+// 			if (y < SCREEN_HEIGHT / 2)
+// 				color_to_pixel(data->draw, color);
+// 			else
+// 				color_to_pixel(data->draw, color2);
+// 			data->draw += ((&data->img_mlx)->bits_per_pixel / 8);
+// 			x++;
 // 		}
-// 		k++;
+// 		y++;
 // 	}
 // }
+	
+
+void	print_block(t_data *data, int color, int j, int i)
+{
+	int	k;
+	int	l;
+
+	k = 0;
+	l = 0;
+	while (k < (double)SZC)
+	{
+		l = 0;
+		while (l < (double)SZC)
+		{
+			ft_mlx_pixel_put(data, MM_X + j + l, MM_Y + i + k, color);
+			l++;
+		}
+		k++;
+	}
+}

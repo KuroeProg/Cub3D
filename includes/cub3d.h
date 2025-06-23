@@ -22,7 +22,11 @@
 # define TEX_COUNT 5
 # define SCREEN_HEIGHT 1080
 # define SCREEN_WIDTH 1920
-# define ANIME_SPEED 20
+# define ANIME_SPEED 30
+
+# define SZC SCREEN_HEIGHT / 25
+# define MM_X 2 * SZC
+# define MM_Y SCREEN_HEIGHT - 25 * SZC
 
 # define W 0x0077
 # define D 0x0064
@@ -31,6 +35,7 @@
 # define Q 0x0071
 # define E 0x0065
 # define F 0x0066
+# define C 0x0063
 # define PI 3.1415
 
 # define ORI 'W' || 'E' || 'N' || 'S' || '0'
@@ -139,7 +144,7 @@ typedef struct s_data
 	float	rad;
     double	plane_x;
     double	plane_y;
-    int     *texture[7];
+    int     *texture[5][12];
     int		map_width;
     int		map_height;
     int		player_start_x;
@@ -155,7 +160,11 @@ typedef struct s_data
 	int		check_door;
 	int		x_door;
 	int		y_door;
+	int		check_animation;
+	char	*start_minimap;
 	t_nx_f	*door;
+	t_nx_f	*tex_s;
+	t_nx_f	*tex_e;
 }	t_data;
 
 /* parsing */
@@ -189,7 +198,7 @@ void	free_tab(char **tab);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
 int		render_frame(t_data *data);
 void	move_player(t_data *data, int move);
-int	mouse_move(int x, int y, t_data *data);
+int		mouse_move(int x, int y, t_data *data);
 void	cam_player(t_data *data, int cam);
 void	open_door(t_data *data);
 // int		**get_sprite(char *sprite);
@@ -205,5 +214,8 @@ void	perform_dda(t_data *data, t_dda *d);
 void	raycast_scene(t_data *data);
 void	draw_vertical_line(t_data *data, double perp_wall_dist, t_dda *d);
 void	load_textures(t_data *game);
+
+/*minimap*/
+void	print_block(t_data *data, int color, int i, int j);
 
 #endif // CUB3D_H

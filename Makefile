@@ -6,7 +6,7 @@
 #    By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 16:04:41 by tbahin            #+#    #+#              #
-#    Updated: 2025/06/20 02:25:04 by tbahin           ###   ########.fr        #
+#    Updated: 2025/06/23 03:01:17 by tbahin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INCLUDE = ./includes/
 CC = cc
 CFLAG = -Wall -Wextra -Werror -g -O3
 
-SRCS =./srcs/parsing/check_map.c ./srcs/parsing/init_data.c ./srcs/display_2d.c \
+SRCS =./srcs/parsing/check_map.c ./srcs/parsing/init_data.c ./srcs/display.c \
 ./srcs/main.c ./srcs/free_mlx.c ./srcs/key.c ./srcs/draw.c ./srcs/move.c\
 ./srcs/dda.c ./srcs/drawline.c ./srcs/door.c
 

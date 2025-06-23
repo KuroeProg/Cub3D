@@ -32,12 +32,8 @@ int main(int argc, char **argv)
 		return (ft_printf(1, "Invalide\n"), 0);
 	else
 		ft_printf(1, "Valide\n");
-	//affichage de la map recu, dans le terminal
-	// display_map(&data);
-	//chargement des textures
 	data.mlx_connection = mlx_init();
 	load_textures(&data);
-	//affichage de la map en 2D avec la minilibx
 	data.mlx_window = mlx_new_window(data.mlx_connection,
 		data.screen_width, data.screen_height, "cub3d");
 	mlx_mouse_hide(data.mlx_connection, data.mlx_window);

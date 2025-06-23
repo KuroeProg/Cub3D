@@ -29,6 +29,13 @@ int	handle_keypress(int keycode, void *param)
 		cam_player(data, 1);
 	else if (keycode == F)
 		open_door(data);
+	else if (keycode == C)
+	{
+		if (!data->check_animation)
+			data->check_animation = 1;
+		else
+			data->check_animation = 0;
+	}
 	data->check_move = 1;
 	return (0);
 }

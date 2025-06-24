@@ -27,15 +27,12 @@ int main(int argc, char **argv)
 	init_data(&data);
 	if (argc != 2)
 		return (printf("Error\nUsage: ./cub3d [map.ber]\n"), 1);
-	//check validation map + parsing
 	if (!get_map_info(&data, argv[1]))
-		return (ft_printf(1, "Invalide\n"), 0);
-	else
-		ft_printf(1, "Valide\n");
+		return (ft_printf(2, "Invalid map\n"), 0);
 	data.mlx_connection = mlx_init();
 	load_textures(&data);
 	data.mlx_window = mlx_new_window(data.mlx_connection,
-		data.screen_width, data.screen_height, "cub3d");
+		data.screen_width, data.screen_height, "cub3D");
 	mlx_mouse_hide(data.mlx_connection, data.mlx_window);
 	data.img_mlx.img = mlx_new_image(data.mlx_connection, data.screen_width, data.screen_height);
 	data.img_mlx.addr = mlx_get_data_addr(data.img_mlx.img,

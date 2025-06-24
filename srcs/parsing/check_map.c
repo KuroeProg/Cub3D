@@ -79,6 +79,8 @@ char	*strcpy_path(char *src)
 	char *dest;
 	i = 0;
 	dest = malloc(strlen_path(src) * (sizeof(char) + 1));
+	if (!dest)
+		return (NULL);
 	while (src[i] && src[i] >= 46 && src[i] <= 122)
 	{
 		dest[i] = src[i];
@@ -132,6 +134,20 @@ int	conv_color(int r, int g, int b)
 	return (color);
 }
 
+int	ck_cl(char *str)
+{
+	while(*str)
+	{
+		if (ft_isalnum(*str))
+		{
+			printf("error %s\n", str);
+			return (1);
+		}
+		str++;
+	}
+	return (0);
+}
+
 int	get_color(char *str)
 {
 	int	r;
@@ -154,23 +170,36 @@ int	get_color(char *str)
 	while (!ft_isdigit(*str))
 		str++;
 	b = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255 || ck_cl(str))
+		return (0);
 	return (conv_color(r, g, b));
 }
 
-void	fill_path_text(char *line, t_data *data)
+int	fill_path_text(char *line, t_data *data)
 {
-	if (line[0] == 'N' && line[1] == 'O')
+	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
 		data->img.path_N = strcpy_path(&line[3]);
-	else if (line[0] == 'S' && line[1] == 'O')
+	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
 		data->img.path_S = strcpy_path(&line[3]);
-	else if (line[0] == 'W' && line[1] == 'E')
+	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
 		data->img.path_W = strcpy_path(&line[3]);
-	else if (line[0] == 'E' && line[1] == 'A')
+	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
 		data->img.path_E = strcpy_path(&line[3]);
 	else if (line[0] == 'F' && line[1] == ' ')
+	{
 		data->img.c_color = get_color(line);
+		if (!data->img.c_color)
+			return (printf("error floor color\n"), 0);
+	}
 	else if (line[0] == 'C' && line[1] == ' ')
+	{
 		data->img.f_color = get_color(line);
+		if (!data->img.f_color)
+			return (printf("error ciel color\n"), 0);
+	}
+	return (1);
 }
 
 int	get_map(t_data *data, char *file_path) 
@@ -183,12 +212,13 @@ int	get_map(t_data *data, char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (!fd || fd < 0)
 		return (0);
-	line = get_next_line(fd); //implicit declaration
+	line = get_next_line(fd);
 	if (line == NULL)
 		return (0);
 	while (line && !check_header(line))
 	{
-		fill_path_text(line, data);
+		if (!fill_path_text(line, data))
+			return(free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -218,7 +248,8 @@ int	malloc_function(t_data *data, char *file_path)
 		i++;
 	}
 	data->map[i] = NULL;
-	get_map(data, file_path);
+	if (!get_map(data, file_path))
+		return (0);
 	return (1);
 }
 
@@ -230,12 +261,11 @@ int	get_map_info(t_data *data, char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (!fd || fd < 0)
 		return (0);
-	line = get_next_line(fd); //implicit declaration
+	line = get_next_line(fd);
 	if (line == NULL)
 		return (0);
 	while (line && !check_header(line))
 	{
-		// fill_info(); remplir les infos de la map (exemple : NO)
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -248,12 +278,12 @@ int	get_map_info(t_data *data, char *file_path)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	printf("debug get_map_info : map_height : %d, map_width : %d\n", data->map_height, data->map_width);
+	// printf("debug get_map_info : map_height : %d, map_width : %d\n", data->map_height, data->map_width);
 	if (!malloc_function(data, file_path))
 		return (0);
 	if (!ft_parsing(data))
 		return (0);
-	return (1); //if everything is good.
+	return (1);
 }
 
 int check_door(t_data *data, int i, int j)
@@ -322,24 +352,24 @@ int ft_parsing(t_data *data)
 			else if (data->map[j][i] == '0')
 			{
 				if (check_borders(data, i, j) == 0)
-					return (printf("parsing error 1 y : %d x : %d\n", j, i), 0);
+					return (ft_printf(2, "parsing error : invalid character around 0\n"), 0);
 				i++;
 			}
 			else if (data->map[j][i] == 'C')
 			{
 				if (check_door(data, i, j) == 0)
-					return (printf("parsing error 3\n"), 0);
+					return (ft_printf(2, "parsing error : invalid character around door (C)\n"), 0);
 				i++;
 			}
 			else if (data->map[j][i] != '1' && data->map[j][i] != ' ' &&
 					data->map[j][i] != 'N' && data->map[j][i] != 'E' &&
 					data->map[j][i] != 'S' && data->map[j][i] != 'W')
-				return (printf("parsing error 2 %i\n", data->map[j][i]), 0);
+				return (ft_printf(2, "parsing error invalid character %i\n", data->map[j][i]), 0);
 			else if (data->map[j][i] == 'N' || data->map[j][i] == 'E' ||
 					data->map[j][i] == 'S' || data->map[j][i] == 'W')
 			{
 				if (!check_borders(data, i, j))
-					return (printf("parsing error 1\n"), 0);
+					return (ft_printf(2, "parsing error : invalid character around start position\n"), 0);
 				else
 					count++;
 				init_player(data, data->map[j][i], i, j);
@@ -351,6 +381,6 @@ int ft_parsing(t_data *data)
 		j++;
 	}
 	if (count != 1)
-		return (printf("parsing error 3 %d\n", count), 0);
+		return (ft_printf(2, "parsing error : you need one and only one position of player\n"), 0);
 	return (1);
 }

@@ -38,18 +38,54 @@ void	display_minimap(t_data *data)
 		while (data->map[j][i])
 		{
 			if (data->map[j][i] == '1')
-				print_block(data, 0x000000, (double)j * SZC, (double)i * SZC);
+				print_block(data, 0x000000, j * SZC, i * SZC);
 			else if (data->map[j][i] == '0' || data->map[j][i] == 'N'
 			|| data->map[j][i] == 'W' || data->map[j][i] == 'E'
 			|| data->map[j][i] == 'S')
-				print_block(data, 0xFFFFFF, (double)j * SZC, (double)i * SZC);
+				print_block(data, 0xFFFFFF, j * SZC, i * SZC);
 			else if (data->map[j][i] == 'C')
-				print_block(data, 0xBB0000, (double)j * SZC, (double)i * SZC);
+				print_block(data, 0xBB0000, j * SZC, i * SZC);
 			i++;
 		}
 		j++;
 	}
 }
+
+// void	display_minimap(t_data *data)
+// {
+// 	int	st_x;
+// 	int	st_y;
+// 	int	x;
+// 	int	y;
+
+// 	st_x = data->player_x;
+// 	st_y = data->player_y;
+// 	x = -3;
+// 	while (x <= 3)
+// 	{
+// 		y = -3;
+// 		while (y <= 3)
+// 		{
+// 			if ((x + st_x >= 0 && y + st_y >= 0) && (x + st_x < data->map_height && y + st_y < data->map_width))
+// 			{
+// 				if (data->map[x + st_x][y + st_y] == '1')
+// 					print_block(data, 0x000000, (int)(x + st_x) * SZC, (int)(y + st_y) * SZC);
+// 				else if (data->map[x + st_x][y + st_y] == '0' || data->map[x + st_x][y + st_y] == 'N'
+// 				|| data->map[x + st_x][y + st_y] == 'W' || data->map[x + st_x][y + st_y] == 'E'
+// 				|| data->map[x + st_x][y + st_y] == 'S')
+// 					print_block(data, 0xFFFFFF, (int)(x + st_x) * SZC, (int)(y + st_y) * SZC);
+// 				else if (data->map[x + st_x][y + st_y] == 'C')
+// 					print_block(data, 0xBB0000, (int)(x + st_x) * SZC, (int)(y + st_y) * SZC);
+// 			}
+// 			else
+// 				printf("x %d y %d\n", x + st_x, y + st_y);
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// 	printf("x %d y %d\n", st_x, st_y);
+// 	display_player(data, 0x00CCCC, data->player_x * SZC, data->player_y * SZC);
+// }
 
 /* ********************************************************************
 ** This function will put the player, the item and the exit on the map.
@@ -88,7 +124,7 @@ void	manage_anime(t_data *data, t_nx_f *tex_s, t_nx_f *tex_e)
 				tex_s->etat = 0;
 			else
 				tex_s->etat++;
-			tex_s->count = (float)ANIME_SPEED * 2.25;
+			tex_s->count = (float)(ANIME_SPEED * 2.25) / (float)(SCREEN_WIDTH / 1000);
 		}
 		tex_e->count--;
 		if (tex_e->count == 0)
@@ -97,7 +133,7 @@ void	manage_anime(t_data *data, t_nx_f *tex_s, t_nx_f *tex_e)
 				tex_e->etat = 0;
 			else
 				tex_e->etat++;
-			tex_e->count = ANIME_SPEED;
+			tex_e->count = (float)ANIME_SPEED  / (float)(SCREEN_WIDTH / 1000);
 		}
 	}
 }

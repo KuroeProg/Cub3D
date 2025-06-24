@@ -38,21 +38,37 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 // 		y++;
 // 	}
 // }
-	
 
-void	print_block(t_data *data, int color, int j, int i)
+void	display_player(t_data *data, int color, double x, double y)
 {
-	int	k;
-	int	l;
+	int		k;
+	int		l;
 
 	k = 0;
-	l = 0;
-	while (k < (double)SZC)
+	while (k < (double)(SZC / 2))
 	{
 		l = 0;
-		while (l < (double)SZC)
+		while (l < (double)(SZC / 2))
 		{
-			ft_mlx_pixel_put(data, MM_X + j + l, MM_Y + i + k, color);
+			ft_mlx_pixel_put(data, (int)x + l, (int)y + k, color);
+			l++;
+		}
+		k++;
+	}
+}
+
+void	print_block(t_data *data, int color, int x, int y)
+{
+	int		k;
+	int		l;
+
+	k = 0;
+	while (k < SZC)
+	{
+		l = 0;
+		while (l < SZC)
+		{
+			ft_mlx_pixel_put(data, x + l + (int)(data->cor_map_x * SZC), y + k + (int)(data->cor_map_y * SZC), color);
 			l++;
 		}
 		k++;

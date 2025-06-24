@@ -67,20 +67,14 @@ void	draw_side(t_data *data, int start, int end)
 	y = 0;
 	while (y < start)
 	{
-		if (y < SCREEN_HEIGHT / 2)
-			draw_pixel(&data->img_mlx, data->draw, data->img.f_color, y);
-		else
-			draw_pixel(&data->img_mlx, data->draw, data->img.c_color, y);
+		draw_pixel(&data->img_mlx, data->draw, data->img.f_color, y);
 		y++;
 	}
 	while (y <= end)
 		y++;
 	while (y > end && y < SCREEN_HEIGHT)
 	{
-		if (y < SCREEN_HEIGHT / 2)
-			draw_pixel(&data->img_mlx, data->draw, data->img.f_color, y);
-		else
-			draw_pixel(&data->img_mlx, data->draw, data->img.c_color, y);
+		draw_pixel(&data->img_mlx, data->draw, data->img.c_color, y);
 		y++;
 	}
 }

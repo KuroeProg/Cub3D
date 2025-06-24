@@ -99,8 +99,6 @@ void	init_data(t_data *data)
     data->plane_y = 0;
     data->map_width = 0;
     data->map_height = 0;
-    data->player_start_x = 0;
-    data->player_start_y = 0;
     data->i = 0;
     data->j = 0;
 	data->check_move = 1;
@@ -108,27 +106,24 @@ void	init_data(t_data *data)
 	data->rotation_speed = 0.05;
 	data->door = NULL;
 	data->check_animation = 1;
+	data->cor_map_x = 0;
+	data->cor_map_y = 0;
 	init_anime(data);
     initialize_img(&data->img);
 }
 
-int	*void_to_int(t_data *data,	void *ptr)
+int	*void_to_int(t_data *data, void *ptr)
 {
 	int bpp;
 	int	sl;
 	int	endian;
-	int w;
-	int	h;
-
+			(void)data;
 	if (!ptr)
 	{
-		ptr = mlx_xpm_file_to_image(data->mlx_connection,
-			"final_sprites_cub3d/red.xpm", &w, &h);
-		if (!ptr)
-		{
+		// ptr = mlx_xpm_file_to_image(data->mlx_connection,
+		// 	"final_sprites_cub3d/red.xpm", &w, &h);
 			printf("error texture \n");
 			exit(1);
-		}
 	}
 	int *pixels = (int *)mlx_get_data_addr(ptr, &bpp, &sl, &endian);
 	return (pixels);

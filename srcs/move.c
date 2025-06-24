@@ -30,25 +30,35 @@ int	valid_move(t_data *data, int move, float x, float y)
 
 void	move_player(t_data *data, int move)
 {
+	
 	if (move == 0 && valid_move(data, 0, 0 ,0))
 	{
 		data->player_x += data->dir_x * 0.04;
 		data->player_y += data->dir_y * 0.04;
+		data->cor_map_x += data->dir_x * 0.04;
+		data->cor_map_y += data->dir_y * 0.04;
+
 	}
 	else if (move == 1 && valid_move(data, 1, 0, 0))
 	{
 		data->player_x -= data->dir_x * 0.04;
 		data->player_y -= data->dir_y * 0.04;
+		data->cor_map_x -= data->dir_x * 0.04;
+		data->cor_map_y -= data->dir_y * 0.04;
 	}
 	else if (move == 2 && valid_move(data, 2, 0, 0))
 	{
 		data->player_x += data->dir_y * 0.04;
 		data->player_y -= data->dir_x * 0.04;
+		data->cor_map_x += data->dir_x * 0.04;
+		data->cor_map_y -= data->dir_y * 0.04;
 	}
 	else if (move == 3 && valid_move(data, 3, 0, 0))
 	{
 		data->player_x -= data->dir_y * 0.04;
 		data->player_y += data->dir_x * 0.04;
+		data->cor_map_x -= data->dir_x * 0.04;
+		data->cor_map_y += data->dir_y * 0.04;
 	}
 }
 
@@ -60,6 +70,8 @@ void	cam_player(t_data *data, int cam)
 		data->dir_y += -data->dir_x * (PI / 64);
 		data->plane_x = -data->dir_y * 0.66;
 		data->plane_y = data->dir_x * 0.66;
+		data->cor_map_x += data->dir_x * 0.04;
+		data->cor_map_y += -data->dir_y * 0.04;
 	}
 	else if (cam == 1)
 	{
@@ -67,6 +79,8 @@ void	cam_player(t_data *data, int cam)
 		data->dir_y += data->dir_x * (PI / 64);
 		data->plane_x = -data->dir_y * 0.66;
 		data->plane_y = data->dir_x * 0.66;
+		data->cor_map_x += -data->dir_x * 0.04;
+		data->cor_map_y += data->dir_y * 0.04;
 	}
 }
 

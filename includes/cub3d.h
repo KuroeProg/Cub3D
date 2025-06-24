@@ -20,13 +20,13 @@
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define TEX_COUNT 5
-# define SCREEN_HEIGHT 1080
-# define SCREEN_WIDTH 1920
-# define ANIME_SPEED 30
+# define SCREEN_HEIGHT 2140
+# define SCREEN_WIDTH 3860
+# define ANIME_SPEED 20
 
-# define SZC SCREEN_HEIGHT / 25
-# define MM_X 2 * SZC
-# define MM_Y SCREEN_HEIGHT - 25 * SZC
+# define SZC 20
+# define MM_X 0
+# define MM_Y 0
 
 # define W 0x0077
 # define D 0x0064
@@ -147,8 +147,6 @@ typedef struct s_data
     int     *texture[5][12];
     int		map_width;
     int		map_height;
-    int		player_start_x;
-    int		player_start_y;
     int		i;
     int		j;
 	int		prev_x;
@@ -165,6 +163,8 @@ typedef struct s_data
 	t_nx_f	*door;
 	t_nx_f	*tex_s;
 	t_nx_f	*tex_e;
+	float	cor_map_x;
+	float	cor_map_y;
 }	t_data;
 
 /* parsing */
@@ -207,6 +207,7 @@ void	open_door(t_data *data);
 /* draw */
 void	ft_mlx_put_image(t_data *data, int color, int color2);
 void	draw_pixel(t_mlx *img_mlx, char *ptr, int color, int y);
+void	display_player(t_data *data, int color, double x, double y);
 
 /*new functions*/
 void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y);
@@ -216,6 +217,6 @@ void	draw_vertical_line(t_data *data, double perp_wall_dist, t_dda *d);
 void	load_textures(t_data *game);
 
 /*minimap*/
-void	print_block(t_data *data, int color, int i, int j);
+void	print_block(t_data *data, int color, int x, int y);
 
 #endif // CUB3D_H

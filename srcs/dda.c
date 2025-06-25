@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 14:52:08 by tbahin            #+#    #+#             */
+/*   Updated: 2025/06/25 16:11:30 by tbahin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 #include <math.h>
 
@@ -9,40 +21,42 @@ double	ft_fabs(double nb)
 		return (nb);
 }
 
-void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y)
+void	init_dda(t_dda *d, double pos_x, double pos_y)
 {
-    d->map_x = (int)pos_x;
-    d->map_y = (int)pos_y;
-    d->delta_x = ft_fabs(1.0 / dir_x);
-    d->delta_y = ft_fabs(1.0 / dir_y);
-    d->hit = 0;
-    if (dir_x < 0)
-    {
-        d->step_x = -1;
-        d->side_x = (pos_x - d->map_x) * d->delta_x;
-    }
-    else
-    {
-        d->step_x = 1;
-        d->side_x = (d->map_x + 1.0 - pos_x) * d->delta_x;
-    }
-    if (dir_y < 0)
-    {
-        d->step_y = -1;
-        d->side_y = (pos_y - d->map_y) * d->delta_y;
-    }
-    else
-    {
-        d->step_y = 1;
-        d->side_y = (d->map_y + 1.0 - pos_y) * d->delta_y;
-    }
+	d->map_x = (int)pos_x;
+	d->map_y = (int)pos_y;
+	d->delta_x = ft_fabs(1.0 / d->ray_dir_x);
+	d->delta_y = ft_fabs(1.0 / d->ray_dir_y);
+	d->hit = 0;
+	if (d->ray_dir_x < 0)
+	{
+		d->step_x = -1;
+		d->side_x = (pos_x - d->map_x) * d->delta_x;
+	}
+	else
+	{
+		d->step_x = 1;
+		d->side_x = (d->map_x + 1.0 - pos_x) * d->delta_x;
+	}
+	if (d->ray_dir_y < 0)
+	{
+		d->step_y = -1;
+		d->side_y = (pos_y - d->map_y) * d->delta_y;
+	}
+	else
+	{
+		d->step_y = 1;
+		d->side_y = (d->map_y + 1.0 - pos_y) * d->delta_y;
+	}
 }
 
 void	check_hit(t_data *data, t_dda *d)
 {
 	if (data->map[d->map_y][d->map_x] == '1')
-    	d->hit = 1;
-	if (data->map[d->map_y][d->map_x] == 'C' || data->map[d->map_y][d->map_x] == 'O' || data->map[d->map_y][d->map_x] == 'D')
+		d->hit = 1;
+	if (data->map[d->map_y][d->map_x] == 'C'
+		|| data->map[d->map_y][d->map_x] == 'O'
+		|| data->map[d->map_y][d->map_x] == 'D')
 	{
 		if (data->map[d->map_y][d->map_x] == 'C')
 			d->door = 1;
@@ -50,7 +64,7 @@ void	check_hit(t_data *data, t_dda *d)
 			d->door = 2;
 		else
 			d->door = 3;
-    	d->hit = 1;
+		d->hit = 1;
 	}
 	else
 		d->door = 0;
@@ -58,44 +72,46 @@ void	check_hit(t_data *data, t_dda *d)
 
 void	perform_dda(t_data *data, t_dda *d)
 {
-    while (d->hit == 0)
-    {
-        if (d->side_x < d->side_y)
-        {
-            d->side_x += d->delta_x;
-            d->map_x += d->step_x;
-            d->side = 0;
-        }
-        else
-        {
-            d->side_y += d->delta_y;
-            d->map_y += d->step_y;
-            d->side = 1;
-        }
+	while (d->hit == 0)
+	{
+		if (d->side_x < d->side_y)
+		{
+			d->side_x += d->delta_x;
+			d->map_x += d->step_x;
+			d->side = 0;
+		}
+		else
+		{
+			d->side_y += d->delta_y;
+			d->map_y += d->step_y;
+			d->side = 1;
+		}
 		check_hit(data, d);
-    }
+	}
 }
 
 void	raycast_scene(t_data *data)
 {
-    int		x;
-    double	camera_x;
-    double	perp_wall_dist;
-    t_dda	d;
+	int		x;
+	double	camera_x;
+	double	perp_wall_dist;
+	t_dda	d;
 
-    x = 0;
-    while (x < data->screen_width)
-    {
-        camera_x = 2 * x / (double)data->screen_width - 1;
-        d.ray_dir_x = data->dir_x + data->plane_x * camera_x;
-        d.ray_dir_y = data->dir_y + data->plane_y * camera_x;
-        init_dda(&d, data->player_x, data->player_y, d.ray_dir_x, d.ray_dir_y);
-        perform_dda(data, &d);
-        if (d.side == 0)
-            perp_wall_dist = (d.map_x - data->player_x + (1 - d.step_x) / 2) / d.ray_dir_x;
-        else
-            perp_wall_dist = (d.map_y - data->player_y + (1 - d.step_y) / 2) / d.ray_dir_y;
-        draw_vertical_line(data, perp_wall_dist, &d);
-        x++;
-    }
+	x = 0;
+	while (x < data->screen_width)
+	{
+		camera_x = 2 * x / (double)data->screen_width - 1;
+		d.ray_dir_x = data->dir_x + data->plane_x * camera_x;
+		d.ray_dir_y = data->dir_y + data->plane_y * camera_x;
+		init_dda(&d, data->player_x, data->player_y);
+		perform_dda(data, &d);
+		if (d.side == 0)
+			perp_wall_dist = (d.map_x - data->player_x
+					+ (1 - d.step_x) / 2) / d.ray_dir_x;
+		else
+			perp_wall_dist = (d.map_y - data->player_y
+					+ (1 - d.step_y) / 2) / d.ray_dir_y;
+		draw_vertical_line(data, perp_wall_dist, &d);
+		x++;
+	}
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 14:52:58 by tbahin            #+#    #+#             */
+/*   Updated: 2025/06/25 19:26:30 by tbahin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 /* **************************************************************************
@@ -8,27 +20,39 @@
  main.c
 ** **************************************************************************/
 
+int	handle_keypress2(int keycode, t_data *data)
+{
+	if (keycode == D)
+		move_player(data, 3);
+	else if (keycode == Q || keycode == 65361)
+		cam_player(data, 0);
+	else if (keycode == E || keycode == 65363)
+		cam_player(data, 1);
+	else if (keycode == F)
+		open_door(data);
+	return (0);
+}
+
 int	handle_keypress(int keycode, void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
 	if (keycode == 0xff1b)
-	 	close_program(data);
-	else if (keycode == W)
+		close_program(data);
+	if (keycode > 255)
+		return (0);
+	printf("%c\n", keycode);
+	if (ft_strchr("aswd", keycode))
+		data->check_move++;
+	data->keys[keycode] = 1;
+	return (0);
+	if (keycode == W)
 		move_player(data, 0);
 	else if (keycode == S)
 		move_player(data, 1);
 	else if (keycode == A)
 		move_player(data, 2);
-	else if (keycode == D)
-		move_player(data, 3);
-	else if (keycode == Q)
-		cam_player(data, 0);
-	else if (keycode == E)
-		cam_player(data, 1);
-	else if (keycode == F)
-		open_door(data);
 	else if (keycode == C)
 	{
 		if (!data->check_animation)
@@ -36,6 +60,7 @@ int	handle_keypress(int keycode, void *param)
 		else
 			data->check_animation = 0;
 	}
+	handle_keypress2(keycode, data);
 	data->check_move = 1;
 	return (0);
 }

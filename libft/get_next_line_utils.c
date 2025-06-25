@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 17:17:54 by tbahin            #+#    #+#             */
-/*   Updated: 2025/01/08 16:05:21 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/24 22:42:38 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(char *str)
+static char	*ft_strdup(char *str)
 {
 	char	*dest;
 	int		i;

@@ -1,16 +1,35 @@
 NO final_sprites_cub3d/Wall1.xpm
-SO final_sprites_cub3d/wall2.xpm
+SO final_sprites_cub3d/wall_animated2.xpm
 WE final_sprites_cub3d/locker.xpm
-EA final_sprites_cub3d/Window.xpm
+EA final_sprites_cub3d/Window1.xpm
 
-F 164,169,20
-C 1,204,255
 
-11111111111111111
-10000000000000001
-10000000000000001
-10000000000000001
-10000001000000001
-1000000DW00000001
-10000001000000001
-11111111111111111
+
+
+F 255,0,0
+C 0,0,255
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+111111111
+100000001
+100N00001
+111111111
+
+

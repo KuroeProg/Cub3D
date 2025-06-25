@@ -1,17 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_mlx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 14:52:51 by tbahin            #+#    #+#             */
+/*   Updated: 2025/06/25 16:15:01 by tbahin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while(tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
 
 void	free_map(char **map)
 {
@@ -27,34 +26,65 @@ void	free_map(char **map)
 	}
 	free(map);
 }
-void	free_sprites(t_img *img, void *mlx_connection)
+
+void	free_sprites(t_data *data)
 {
-	if (!img || !mlx_connection)
-		return ;
-	// if (img->img_path)
-	// 	mlx_destroy_image(mlx_connection, img->img_path);
-	// if (img->img_wall)
-	// 	mlx_destroy_image(mlx_connection, img->img_wall);
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 12)
+		{
+			if (data->texture[i][j])
+				mlx_destroy_image(data->mlx_connection,
+					data->ptr_texture[i][j]);
+			j++;
+		}
+		i++;
+	}
 }
 
-void	free_game(t_data *game)
+void	free_path_anim(t_data *data)
 {
-	free_sprites(&game->img, game->mlx_connection);
-	if (game->mlx_window)
+	free(data->img.path_s);
+	free(data->img.path_w);
+	free(data->img.path_e);
+	free(data->img.path_n);
+	free(data->tex_s);
+	free(data->tex_e);
+}
+
+void	free_data(t_data *data)
+{
+	free_path_anim(data);
+	free_map(data->map);
+}
+
+void	free_game(t_data *data)
+{
+	free_sprites(data);
+	free_path_anim(data);
+	if (data->door)
+		free(data->door);
+	mlx_destroy_image(data->mlx_connection, data->img_mlx.img);
+	if (data->mlx_window)
 	{
-		mlx_destroy_window(game->mlx_connection, game->mlx_window);
-		game->mlx_window = NULL;
+		mlx_destroy_window(data->mlx_connection, data->mlx_window);
+		data->mlx_window = NULL;
 	}
-	if (game->mlx_connection)
+	if (data->mlx_connection)
 	{
-		mlx_destroy_display(game->mlx_connection);
-		free(game->mlx_connection);
-		game->mlx_connection = NULL;
+		mlx_destroy_display(data->mlx_connection);
+		free(data->mlx_connection);
+		data->mlx_connection = NULL;
 	}
-	if (game->map)
+	if (data->map)
 	{
-		free_map(game->map);
-		game->map = NULL;
+		free_map(data->map);
+		data->map = NULL;
 	}
 	exit(0);
 }

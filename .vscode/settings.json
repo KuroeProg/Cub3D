@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"functional": "c"
+		"functional": "c",
+		"sstream": "c",
+		"cub3d.h": "c"
 	}
 }

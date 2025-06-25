@@ -2,8 +2,9 @@ NO final_sprites_cub3d/Wall1.xpm
 SO final_sprites_cub3d/wall_animated2.xpm
 WE final_sprites_cub3d/locker.xpm
 EA final_sprites_cub3d/Window1.xpm
-F 164,169,20
-C 153,204,255
+
+F 153,204,255
+C 164,169,20
 
 111111111111111111111
 101000001000000000001

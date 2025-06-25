@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbahin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:29:46 by tbahin            #+#    #+#             */
-/*   Updated: 2025/01/08 16:03:38 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/25 02:17:49 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*get_next_line(int fd)
 	int			nb_read;
 	char		*buf;
 
+	if (fd == -1)
+		return (free(line), NULL);
 	nb_read = -1;
 	buf = NULL;
 	if (ft_check_gnl(line) != (-1))

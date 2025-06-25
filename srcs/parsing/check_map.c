@@ -1,67 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 14:45:08 by tbahin            #+#    #+#             */
+/*   Updated: 2025/06/25 18:39:45 by tbahin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-// #include "../.minilibx-linux/mlx.h"
-
-// void	ft_flood_fill(char **map, t_data *data, int i, int j)
-// {
-// 	if (i < 0 || j < 0 || i >= data->map_width || j >= data->map_height)
-// 		return ;
-// 	if (map[j][i] == '1' || map[j][i] == 'F')
-// 		return ;
-// 	if (map[j][i] == '0' || map[j][i] == 'W' || map[j][i] == 'N' ||
-// 		|| map[j][i] == 'S' || map[j][i] == 'E')
-// 		map[j][i] = 'F';
-// 	else
-// 	{
-// 		// ft_check_free2(i, j, game, map);
-// 		// ft_error(8, game);
-// 		return ;
-// 	}
-// 	ft_flood_fill(map, game, i + 1, j);
-// 	ft_flood_fill(map, game, i - 1, j);
-// 	ft_flood_fill(map, game, i, j + 1);
-// 	ft_flood_fill(map, game, i, j - 1);
-// }
-
-// void	display_map(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (data->map[i])
-// 	{
-// 		j = 0;
-// 		while (data->map[i][j] && data->map[i][j] != '\n')
-// 		{
-// 			ft_printf(1, "%c", data->map[i][j]);
-// 			j++;
-// 		}
-// 		ft_printf(1, "\n");
-// 		i++;
-// 	}
-// }
-
-
-// void	display_map_color(int **map)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (i < 32)
-// 	{
-// 		j = 0;
-// 		while (j < 32 && map[i][j] != '\n')
-// 		{
-// 			ft_printf(1, "%d ", map[i][j]);
-// 			j++;
-// 		}
-// 		ft_printf(1, "\n");
-// 		i++;
-// 	}
-// }
 
 int	strlen_path(char *src)
 {
@@ -71,6 +20,16 @@ int	strlen_path(char *src)
 	while (src[i] && src[i] >= 46 && src[i] <= 122)
 		i++;
 	return (i);
+}
+
+int	check_valid_name_tex(char *name)
+{
+	int	size;
+
+	size = ft_strlen(name);
+	if ( size < 4 || ft_strcmp(".xpm", &name[size - 4]))
+		return (0);
+	return (1);
 }
 
 char	*strcpy_path(char *src)
@@ -87,6 +46,8 @@ char	*strcpy_path(char *src)
 		i++;
 	}
 	dest[i] = '\0';
+	if (!check_valid_name_tex(dest))
+		return (NULL);
 	return (dest);
 }
 
@@ -97,6 +58,8 @@ void	strcpy_cube(char *dest, char *src, int size)
 	i = 0;
 	while (i < size)
 	{
+		if (src[i] == 10)
+			break ;
 		if (src && src[i])
 			dest[i] = src[i];
 		else
@@ -115,7 +78,8 @@ int	check_header(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!(line[i] == '1' || line[i] == '0' || (line[i] >= 9 && line[i] <= 13) || line[i] == 32))
+		if (!(line[i] == '1' || line[i] == '0'
+			|| (line[i] >= 9 && line[i] <= 13) || line[i] == 32))
 			return (0);
 		else if (line[i] == '1')
 			check = 1;
@@ -134,72 +98,73 @@ int	conv_color(int r, int g, int b)
 	return (color);
 }
 
-int	ck_cl(char *str)
-{
-	while(*str)
-	{
-		if (ft_isalnum(*str))
-		{
-			printf("error %s\n", str);
-			return (1);
-		}
-		str++;
-	}
-	return (0);
-}
-
-int	get_color(char *str)
+int	get_color(int *color, char *str)
 {
 	int	r;
 	int	g;
 	int	b;
+	int	i;
 
 	r = 0;
 	g = 0;
 	b = 0;
-	while (!ft_isdigit(*str))
-		str++;
+	i = 0;
 	r = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	while (!ft_isdigit(*str))
-		str++;
-	g = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	while (!ft_isdigit(*str))
-		str++;
-	b = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255 || ck_cl(str))
+	while (ft_isdigit(str[i]))
+		i++;
+	while (!ft_isdigit(str[i]))
+		i++;
+	g = ft_atoi(&str[i]);
+	while (ft_isdigit(str[i]))
+		i++;
+	while (!ft_isdigit(str[i]))
+		i++;
+	b = ft_atoi(&str[i]);
+	while (ft_isdigit(str[i]))
+		i++;
+	if (str[i] && str[i] != '\n')
 		return (0);
-	return (conv_color(r, g, b));
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (0);
+	*color = conv_color(r, g, b);
+	return(1);
 }
 
-int	fill_path_text(char *line, t_data *data)
+int	check_space(char *line)
 {
-	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		data->img.path_N = strcpy_path(&line[3]);
-	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		data->img.path_S = strcpy_path(&line[3]);
-	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		data->img.path_W = strcpy_path(&line[3]);
-	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		data->img.path_E = strcpy_path(&line[3]);
-	else if (line[0] == 'F' && line[1] == ' ')
-	{
-		data->img.c_color = get_color(line);
-		if (!data->img.c_color)
-			return (printf("error floor color\n"), 0);
-	}
-	else if (line[0] == 'C' && line[1] == ' ')
-	{
-		data->img.f_color = get_color(line);
-		if (!data->img.f_color)
-			return (printf("error ciel color\n"), 0);
-	}
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == 32 || (line[i] >= 9 && line[i] <= 13)))
+		i++;
+	if (line[i])
+		return (0);
 	return (1);
+}
+
+int	fill_path_text(char *line, t_data *da)
+{
+	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ' && da->i == 0)
+		return (da->img.path_n = strcpy_path(&line[3]), da->i++, 1);
+	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ' && da->i == 1)
+		return (da->img.path_s = strcpy_path(&line[3]), da->i++, 1);
+	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ' && da->i == 2)
+		return (da->img.path_w = strcpy_path(&line[3]), da->i++, 1);
+	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ' && da->i == 3)
+		return (da->img.path_e = strcpy_path(&line[3]), da->i++, 1);
+	else if (line[0] == 'F' && line[1] == ' ' && da->i == 4)
+	{
+		if (!get_color(&da->img.f_color, &line[2]))
+			return (printf("error floor color\n"), 0);
+		return(da->i++, 1);
+	}
+	else if (line[0] == 'C' && line[1] == ' ' && da->i == 5)
+	{
+		if (!get_color(&da->img.c_color, &line[2]))
+			return (printf("error ciel color\n"), 0);
+		return (da->i++, 1);
+	}
+	return (0);
 }
 
 int	get_map(t_data *data, char *file_path) 
@@ -214,20 +179,35 @@ int	get_map(t_data *data, char *file_path)
 		return (0);
 	line = get_next_line(fd);
 	if (line == NULL)
-		return (0);
+		return (close(fd), 0);
 	while (line && !check_header(line))
 	{
-		if (!fill_path_text(line, data))
-			return(free(line), 0);
+		while (check_space(line))
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		if (check_header(line))
+			break ;
+		if (data->i < 6 && !fill_path_text(line, data))
+		{
+			free(line);
+			line = NULL;
+			get_next_line(-1);
+			return(close(fd), 0);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	while (line != NULL && data->map[i] && i < data->map_height)
+	while (line && i < data->map_height)
 	{
-		strcpy_cube(data->map[i++], line, data->map_width);
+		strcpy_cube(data->map[i], line, data->map_width);
+		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
+	data->map[i] = NULL;
 	close(fd);
 	return (1);
 }
@@ -253,6 +233,20 @@ int	malloc_function(t_data *data, char *file_path)
 	return (1);
 }
 
+int	invalid_line(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_strchr("0 \n1NEWSC", str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	get_map_info(t_data *data, char *file_path) 
 {
 	char	*line;
@@ -266,11 +260,24 @@ int	get_map_info(t_data *data, char *file_path)
 		return (0);
 	while (line && !check_header(line))
 	{
+		while (check_space(line))
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		if (check_header(line))
+			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
 	while (line != NULL)
 	{
+		if (invalid_line(line))
+		{
+			get_next_line(-1);
+			free(line);
+			return (0);	
+		}
 		data->map_height++;
 		if ((int)ft_strlen_n(line) > data->map_width)
 			data->map_width = (int)ft_strlen_n(line);
@@ -278,7 +285,6 @@ int	get_map_info(t_data *data, char *file_path)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	// printf("debug get_map_info : map_height : %d, map_width : %d\n", data->map_height, data->map_width);
 	if (!malloc_function(data, file_path))
 		return (0);
 	if (!ft_parsing(data))

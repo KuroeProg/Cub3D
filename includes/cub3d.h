@@ -1,26 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 14:44:47 by tbahin            #+#    #+#             */
+/*   Updated: 2025/06/25 19:48:44 by tbahin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#include "../libft/libft.h"
-#include "../libft/get_next_line.h"
-#include <fcntl.h> //open()
-#include <unistd.h> //close(), read(), write()
-#include <stdio.h> //printf(), perror()
-#include <string.h> //strerror()
-#include <stdlib.h> //malloc(), free(), exit();
-#include <math.h> //maths functions (-lm compilation flag)
-#include "../.minilibx-linux/mlx.h" // (-lmlx, lX11, -lXext, -lm for compilation)
+# include "../libft/libft.h"
+# include "../libft/get_next_line.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h> 
+# include <math.h> 
+# include "../.minilibx-linux/mlx.h"
 
-#define NO 0
-#define SO 1
-#define WE 2
-#define EA 3
-#define DOOR 4
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define DOOR 4
 
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define TEX_COUNT 5
-# define SCREEN_HEIGHT 2140
+# define SCREEN_HEIGHT 2140 
 # define SCREEN_WIDTH 3860
 # define ANIME_SPEED 20
 
@@ -69,24 +81,24 @@
     (data->map[j][i + 1] == ORI && data->map[j][i - 1] == ORI && \
      data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1')
 
-typedef	struct s_draw_line
+typedef struct s_draw_line
 {
 	int		line_height;
-    int		draw_start;
-    int		draw_end;
-    int		y;
-    double	wall_x;
-    int		tex_x;
-    int		tex_y;
-    double	step ;
-    double	tex_pos;
-    int		color;
+	int		draw_start;
+	int		draw_end;
+	int		y;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step ;
+	double	tex_pos;
+	int		color;
 }					t_dwl;
 
 
 typedef struct s_dda
 {
-    int		map_x;
+	int		map_x;
     int		map_y;
     double	side_x;
     double	side_y;
@@ -104,10 +116,10 @@ typedef struct s_dda
 
 typedef struct s_img
 {
-	char	*path_S;   // path texture sud
-	char	*path_W;   // path texture ouest
-	char	*path_E;   // path texture est
-	char	*path_N;   // path texture nord
+	char	*path_s;
+	char	*path_w;
+	char	*path_e;
+	char	*path_n;
 	int		c_color;
 	int		f_color;
 }				t_img;
@@ -131,28 +143,29 @@ typedef struct s_next_frame
 
 typedef struct s_data
 {
-    void	*mlx_connection;
-    void	*mlx_window;
-    t_mlx	img_mlx;
-    int		screen_width;
-    int		screen_height;
-    char	**map;
-    double	player_x;
-    double	player_y;
-    double	dir_x;
-    double	dir_y;
+	void	*mlx_connection;
+	void	*mlx_window;
+	t_mlx	img_mlx;
+	int		screen_width;
+	int		screen_height;
+	char	**map;
+	double	player_x;
+	double	player_y;
+	double	dir_x;
+	double	dir_y;
 	float	rad;
-    double	plane_x;
-    double	plane_y;
-    int     *texture[5][12];
-    int		map_width;
-    int		map_height;
-    int		i;
-    int		j;
+	double	plane_x;
+	double	plane_y;
+	void    *ptr_texture[5][12];
+	int     *texture[5][12];
+	int		map_width;
+	int		map_height;
+	int		i;
+	int		j;
 	int		prev_x;
 	float	rotation_speed;
 	char	*draw;
-    t_img	img;
+	t_img	img;
 	t_dda   *dda;
 	int		check_move;
 	int		check_door;
@@ -163,8 +176,11 @@ typedef struct s_data
 	t_nx_f	*door;
 	t_nx_f	*tex_s;
 	t_nx_f	*tex_e;
+	int		squale_map;
 	float	cor_map_x;
 	float	cor_map_y;
+	int		valid_size_map;
+	char	keys[256];
 }	t_data;
 
 /* parsing */
@@ -177,8 +193,7 @@ int check_borders(t_data *data, int i, int j);
 /*init_data*/
 void 	init_data(t_data *data);
 void	init_player(t_data *data, char c, int x, int y);
-// t_img	xpm_to_img(t_data *game);
-void	initialize_img(t_img *img);
+
 /* algo */
 
 
@@ -189,10 +204,10 @@ int		close_program(void *param);
 
 /* free */
 void	free_game(t_data *game);
-void	free_sprites(t_img *img, void *mlx_connection);
+// void	free_sprites(t_data *data);
 void	free_map(char **map);
-void	free_tab(char **tab);
-
+void	free_data(t_data *data);
+void	free_sprites(t_data *data);
 /* display_2d */
 // void	display_line(char *line, t_mlx *game, t_img *img, int j);
 // void	ft_movesprite(char *line, t_data *game, int j, t_img *img);
@@ -205,12 +220,12 @@ void	open_door(t_data *data);
 // void	display_map_color(int **data);
 
 /* draw */
-void	ft_mlx_put_image(t_data *data, int color, int color2);
+// void	ft_mlx_put_image(t_data *data, int color, int color2);
 void	draw_pixel(t_mlx *img_mlx, char *ptr, int color, int y);
 void	display_player(t_data *data, int color, double x, double y);
 
 /*new functions*/
-void	init_dda(t_dda *d, double pos_x, double pos_y, double dir_x, double dir_y);
+void	init_dda(t_dda *d, double pos_x, double pos_y);
 void	perform_dda(t_data *data, t_dda *d);
 void	raycast_scene(t_data *data);
 void	draw_vertical_line(t_data *data, double perp_wall_dist, t_dda *d);

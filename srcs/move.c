@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:53:14 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 15:40:58 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 22:15:39 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	mouse_move(int x, int y, t_data *data)
 			* ((float)delta_x / (SCREEN_WIDTH / 2));
 		data->plane_x = -data->dir_y * 0.66;
 		data->plane_y = data->dir_x * 0.66;
-		data->check_move = 2;
 		mlx_mouse_move(data->mlx_connection,
 			data->mlx_window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	}

@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:52:26 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 16:15:52 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 22:14:04 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	animate_door(t_data *data, t_dda *d, char etat)
 
 	door = malloc(sizeof(t_nx_f));
 	data->map[d->map_y][d->map_x] = 'D';
-	data->check_move = 1;
 	door->count = ANIME_SPEED;
 	door->etat = etat;
 	door->x = d->map_x;

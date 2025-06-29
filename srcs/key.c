@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:52:58 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/29 18:38:53 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 22:49:01 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	handle_keypress(int keycode, void *param)
 	if (keycode == 0xff1b)
 		close_program(data);
 	if (ft_strchr("aswdqe", keycode))
-	{
-		data->check_move++;
+	{;
 		data->keys[keycode] = 1;
 		return (0);
 	}
@@ -60,6 +59,5 @@ int	handle_keypress(int keycode, void *param)
 			data->check_animation = 0;
 	}
 	handle_keypress2(keycode, data);
-	data->check_move = 1;
 	return (0);
 }

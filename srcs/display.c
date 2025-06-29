@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:52:17 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/29 18:43:37 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 23:17:17 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ int	render_frame(t_data *data)
 {
 	if (!data->map || !data->mlx_connection || !data->mlx_window)
 		return (0);
-	if (data->keys['w'])
-		move_player(data, 0);
-	if (data->keys['s'])
-		move_player(data, 1);
-	if (data->keys['a'])
-		move_player(data, 2);
-	if (data->keys['d'])
-		move_player(data, 3);
-	if (data->keys['q'])
-		cam_player(data, 0);
-	if (data->keys['e'])
-		cam_player(data, 1);
+	if (data->count_frame_speed % data->move_speed == 0)
+	{
+		if (data->keys['w'])
+				move_player(data, 0);
+		if (data->keys['s'])
+				move_player(data, 1);
+		if (data->keys['a'])
+				move_player(data, 2);
+		if (data->keys['d'])
+				move_player(data, 3);
+		if (data->keys['q'])
+				cam_player(data, 0);
+		if (data->keys['e'])
+				cam_player(data, 1);
+	}
 	if (data->door)
 	{
 		data->door->count--;
@@ -105,7 +108,6 @@ int	render_frame(t_data *data)
 	mini_map(data);
 	mlx_put_image_to_window(data->mlx_connection,
 		data->mlx_window, data->img_mlx.img, 0, 0);
-	if (!data->door)
-		data->check_move = 0;
+	data->count_frame_speed++;
 	return (0);
 }

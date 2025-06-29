@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:44:47 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 19:48:44 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 23:17:59 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,12 @@ typedef struct s_data
 	char	*draw;
 	t_img	img;
 	t_dda   *dda;
-	int		check_move;
 	int		check_door;
 	int		x_door;
 	int		y_door;
 	int		check_animation;
+	int		move_speed;
+	int		count_frame_speed;
 	char	*start_minimap;
 	t_nx_f	*door;
 	t_nx_f	*tex_s;

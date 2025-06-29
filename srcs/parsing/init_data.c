@@ -68,10 +68,13 @@ void	init_data(t_data *data)
 	data->keys['s'] = 0;
 	data->keys['q'] = 0;
 	data->keys['e'] = 0;
+	if (SCREEN_HEIGHT == 1080)
+		data->move_speed = 3;
+	else
+		data->move_speed = 1;
 	data->screen_width = SCREEN_WIDTH;
 	data->screen_height = SCREEN_HEIGHT;
 	data->plane_x = -0.66;
-	data->check_move = 1;
 	data->prev_x = SCREEN_WIDTH / 2;
 	data->rotation_speed = 0.05;
 	data->check_animation = 1;

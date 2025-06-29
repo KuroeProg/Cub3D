@@ -30,7 +30,7 @@ int	release_key(int keycode, void *param)
 	if (keycode > 255)
 		return (0);
 	data->keys[keycode] = 0;
-	if (ft_strchr("aswd", keycode))
+	if (ft_strchr("aswdqe", keycode))
 		data->check_move--;
 	return (0);
 }

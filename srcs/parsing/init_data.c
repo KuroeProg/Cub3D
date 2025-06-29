@@ -66,6 +66,8 @@ void	init_data(t_data *data)
 	data->keys['w'] = 0;
 	data->keys['d'] = 0;
 	data->keys['s'] = 0;
+	data->keys['q'] = 0;
+	data->keys['e'] = 0;
 	data->screen_width = SCREEN_WIDTH;
 	data->screen_height = SCREEN_HEIGHT;
 	data->plane_x = -0.66;

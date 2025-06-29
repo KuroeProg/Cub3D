@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:52:58 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 19:26:30 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 18:38:53 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ int	handle_keypress(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == 0xff1b)
 		close_program(data);
-	if (keycode > 255)
-		return (0);
-	printf("%c\n", keycode);
-	if (ft_strchr("aswd", keycode))
+	if (ft_strchr("aswdqe", keycode))
+	{
 		data->check_move++;
-	data->keys[keycode] = 1;
-	return (0);
+		data->keys[keycode] = 1;
+		return (0);
+	}
 	if (keycode == W)
 		move_player(data, 0);
 	else if (keycode == S)

@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:52:17 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 19:31:24 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/29 18:43:37 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ int	render_frame(t_data *data)
 		move_player(data, 2);
 	if (data->keys['d'])
 		move_player(data, 3);
+	if (data->keys['q'])
+		cam_player(data, 0);
+	if (data->keys['e'])
+		cam_player(data, 1);
 	if (data->door)
 	{
 		data->door->count--;

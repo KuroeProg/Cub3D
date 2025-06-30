@@ -41,7 +41,7 @@ int	handle_keypress(int keycode, void *param)
 	if (keycode == 0xff1b)
 		close_program(data);
 	if (ft_strchr("aswdqe", keycode))
-	{;
+	{
 		data->keys[keycode] = 1;
 		return (0);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:44:47 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/29 23:17:59 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:05:52 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define SZC 20
 # define MM_X 0
 # define MM_Y 0
+# define MLX mlx_xpm_file_to_image
+# define PT_TEXT ptr_texture
 
 # define W 0x0077
 # define D 0x0064
@@ -95,22 +97,21 @@ typedef struct s_draw_line
 	int		color;
 }					t_dwl;
 
-
 typedef struct s_dda
 {
 	int		map_x;
-    int		map_y;
-    double	side_x;
-    double	side_y;
-    double	delta_x;
-    double	delta_y;
-    int		step_x;
-    int		step_y;
-    int		hit;
-    int		side;
-    double	ray_dir_x;
-    double	ray_dir_y;
-    int		tex_num;
+	int		map_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		tex_num;
 	int		door;
 }	t_dda;
 
@@ -131,7 +132,7 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} t_mlx;
+}				t_mlx;
 
 typedef struct s_next_frame
 {
@@ -139,7 +140,7 @@ typedef struct s_next_frame
 	int		y;
 	char	etat;
 	int		count;
-} 					t_nx_f;
+}			t_nx_f;
 
 typedef struct s_data
 {
@@ -156,8 +157,8 @@ typedef struct s_data
 	float	rad;
 	double	plane_x;
 	double	plane_y;
-	void    *ptr_texture[5][12];
-	int     *texture[5][12];
+	void	*ptr_texture[5][12];
+	int		*texture[5][12];
 	int		map_width;
 	int		map_height;
 	int		i;
@@ -166,7 +167,7 @@ typedef struct s_data
 	float	rotation_speed;
 	char	*draw;
 	t_img	img;
-	t_dda   *dda;
+	t_dda	*dda;
 	int		check_door;
 	int		x_door;
 	int		y_door;
@@ -186,17 +187,14 @@ typedef struct s_data
 
 /* parsing */
 /* check_map.c */
-int	malloc_function(t_data *data, char *file_path);
-int	get_map_info(t_data *data,char *file_path);
-int ft_parsing(t_data *data);
-int check_borders(t_data *data, int i, int j);
+int		malloc_function(t_data *data, char *file_path);
+int		get_map_info(t_data *data, char *file_path);
+int		ft_parsing(t_data *data);
+int		check_borders(t_data *data, int i, int j);
 
 /*init_data*/
-void 	init_data(t_data *data);
+void	init_data(t_data *data);
 void	init_player(t_data *data, char c, int x, int y);
-
-/* algo */
-
 
 /* utils */
 int		handle_keypress(int keycode, void *param);
@@ -234,5 +232,10 @@ void	load_textures(t_data *game);
 
 /*minimap*/
 void	print_block(t_data *data, int color, int x, int y);
+int		*void_to_int(t_data *data, void *ptr, void **tab_ptr);
+char	*strcpy_path(char *src);
+int		check_header(char *line);
+int		check_space(char *line);
+int		invalid_line(char *line);
 
 #endif // CUB3D_H

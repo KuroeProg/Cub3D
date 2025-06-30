@@ -12,6 +12,35 @@
 
 #include "../includes/cub3d.h"
 
+static void	render_framebis(t_data *data)
+{
+	if (data->count_frame_speed % data->move_speed == 0)
+	{
+		if (data->keys['w'])
+			move_player(data, 0);
+		if (data->keys['s'])
+			move_player(data, 1);
+		if (data->keys['a'])
+			move_player(data, 2);
+		if (data->keys['d'])
+			move_player(data, 3);
+		if (data->keys['q'])
+			cam_player(data, 0);
+		if (data->keys['e'])
+			cam_player(data, 1);
+	}
+	if (data->door)
+	{
+		data->door->count--;
+		if (data->door->count == 0)
+		{
+			data->map[data->door->y][data->door->x] = data->door->etat;
+			free(data->door);
+			data->door = NULL;
+		}
+	}
+}
+
 void	display_minimap(t_data *d, int x, int y)
 {
 	while (d->map[x])
@@ -77,31 +106,7 @@ int	render_frame(t_data *data)
 {
 	if (!data->map || !data->mlx_connection || !data->mlx_window)
 		return (0);
-	if (data->count_frame_speed % data->move_speed == 0)
-	{
-		if (data->keys['w'])
-				move_player(data, 0);
-		if (data->keys['s'])
-				move_player(data, 1);
-		if (data->keys['a'])
-				move_player(data, 2);
-		if (data->keys['d'])
-				move_player(data, 3);
-		if (data->keys['q'])
-				cam_player(data, 0);
-		if (data->keys['e'])
-				cam_player(data, 1);
-	}
-	if (data->door)
-	{
-		data->door->count--;
-		if (data->door->count == 0)
-		{
-			data->map[data->door->y][data->door->x] = data->door->etat;
-			free(data->door);
-			data->door = NULL;
-		}
-	}
+	render_framebis(data);
 	manage_anime(data, data->tex_s, data->tex_e);
 	data->draw = data->img_mlx.addr;
 	raycast_scene(data);

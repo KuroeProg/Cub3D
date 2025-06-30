@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:53:11 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/06/30 18:07:50 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/06/30 22:37:20 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-int malloc_function(t_data *data, char *file_path);
-int invalid_line(char *line);
 
 static int	skip_to_map(int fd, char **line)
 {

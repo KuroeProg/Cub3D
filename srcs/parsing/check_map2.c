@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   check_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:11:06 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/06/30 17:53:57 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:22:28 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int check_valid_door(char c)
+{
+	if (c == 'W' || c == 'E' || c == 'N' || c == 'S' || c == '0')
+		return (1);
+	return (0);
+}
 
 int	check_door(t_data *data, int i, int j)
 {
@@ -25,15 +32,29 @@ int	check_door(t_data *data, int i, int j)
 		return (0);
 	if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
 		return (0);
-	if (!(CHECK_MAP_TOP))
+	if (!((data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
+    data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
+	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
+    data->map[j - 1][i] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_DOWN))
+	if (!((data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
+    data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
+	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
+    data->map[j + 1][i] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_LEFT))
+	if (!((data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
+     data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
+     data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
+	 data->map[j][i - 1] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_RIGHT))
+	if (!((data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
+     data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
+     data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
+	 data->map[j][i + 1] == 'C')))
 		return (0);
-	if (!CHECK_HORIZONTAL_DOOR && !CHECK_VERTICAL_DOOR)
+	if (!(check_valid_door(data->map[j][i + 1]) && check_valid_door(data->map[j][i - 1]) && \
+     data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1') && !(data->map[j][i + 1] == '1' && data->map[j][i - 1] == '1' && \
+     check_valid_door(data->map[j + 1][i]) && check_valid_door(data->map[j - 1][i])))
 		return (0);
 	return (1);
 }
@@ -51,13 +72,26 @@ int	check_borders(t_data *data, int i, int j)
 		return (0);
 	if (data->map[j][i + 1] == ' ' || data->map[j][i + 1] == '\0')
 		return (0);
-	if (!(CHECK_MAP_TOP))
+	if (!((data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
+    data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
+	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
+    data->map[j - 1][i] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_DOWN))
+	if (!((data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
+    data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
+	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
+    data->map[j + 1][i] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_LEFT))
+	if (!((data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
+     data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
+     data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
+	 data->map[j][i - 1] == 'C')))
 		return (0);
-	if (!(CHECK_MAP_RIGHT))
+	if (!((data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
+     data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
+     data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
+	 data->map[j][i + 1] == 'C')
+))
 		return (0);
 	return (1);
 }

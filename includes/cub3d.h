@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:44:47 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/30 18:05:52 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/06/30 23:15:44 by tbahin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,37 +51,6 @@
 # define F 0x0066
 # define C 0x0063
 # define PI 3.1415
-
-# define ORI 'W' || 'E' || 'N' || 'S' || '0'
-
-# define CHECK_MAP_TOP \
-    (data->map[j - 1][i] == '0' || data->map[j - 1][i] == '1' || \
-    data->map[j - 1][i] == 'N' || data->map[j - 1][i] == 'E' || \
-	data->map[j - 1][i] == 'S' || data->map[j - 1][i] == 'W' || \
-    data->map[j - 1][i] == 'C')
-# define CHECK_MAP_DOWN \
-    (data->map[j + 1][i] == '0' || data->map[j + 1][i] == '1' || \
-    data->map[j + 1][i] == 'N' || data->map[j + 1][i] == 'E' || \
-	data->map[j + 1][i] == 'S' || data->map[j + 1][i] == 'W' || \
-    data->map[j + 1][i] == 'C')
-# define CHECK_MAP_LEFT \
-    (data->map[j][i - 1] == '0' || data->map[j][i - 1] == '1' || \
-     data->map[j][i - 1] == 'N' || data->map[j][i - 1] == 'E' || \
-     data->map[j][i - 1] == 'S' || data->map[j][i - 1] == 'W' || \
-	 data->map[j][i - 1] == 'C')
-# define CHECK_MAP_RIGHT \
-    (data->map[j][i + 1] == '0' || data->map[j][i + 1] == '1' || \
-     data->map[j][i + 1] == 'N' || data->map[j][i + 1] == 'E' || \
-     data->map[j][i + 1] == 'S' || data->map[j][i + 1] == 'W' || \
-	 data->map[j][i + 1] == 'C')
-
-# define CHECK_VERTICAL_DOOR \
-    (data->map[j][i + 1] == '1' && data->map[j][i - 1] == '1' && \
-     data->map[j + 1][i] == ORI && data->map[j - 1][i] == ORI)
-
-# define CHECK_HORIZONTAL_DOOR \
-    (data->map[j][i + 1] == ORI && data->map[j][i - 1] == ORI && \
-     data->map[j + 1][i] == '1' && data->map[j - 1][i] == '1')
 
 typedef struct s_draw_line
 {
@@ -191,6 +160,10 @@ int		malloc_function(t_data *data, char *file_path);
 int		get_map_info(t_data *data, char *file_path);
 int		ft_parsing(t_data *data);
 int		check_borders(t_data *data, int i, int j);
+int		malloc_function(t_data *data, char *file_path);
+int		invalid_line(char *line);
+void	strcpy_cube(char *dest, const char *src, int size);
+int		fill_path_text(char *line, t_data *da);
 
 /*init_data*/
 void	init_data(t_data *data);

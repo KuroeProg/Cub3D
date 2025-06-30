@@ -57,10 +57,10 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	data = (t_data){0};
-	init_data(&data);
 	if (argc != 2 || !check_valid_name(argv[1]))
 		return (printf("Error\nUsage: ./cub3D [map.cub]\n"), 1);
+	data = (t_data){0};
+	init_data(&data);
 	if (!get_map_info(&data, argv[1]))
 		return (free_data(&data), ft_printf(2, "Invalid map\n"), 0);
 	data.mlx_connection = mlx_init();

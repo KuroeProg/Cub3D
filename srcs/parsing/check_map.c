@@ -52,24 +52,6 @@ char	*strcpy_path(char *src)
 	return (dest);
 }
 
-/* void	strcpy_cube(char *dest, char *src, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (src[i] == 10)
-			break ;
-		if (src && src[i])
-			dest[i] = src[i];
-		else
-			dest[i] = '\0';
-		i++;
-	}
-	dest[i] = '\0';
-} */
-
 void	strcpy_cube(char *dest, const char *src, int size)
 {
 	int	i;

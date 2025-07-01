@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:44:47 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/30 23:15:44 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/07/01 10:41:03 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,7 @@ char	*strcpy_path(char *src);
 int		check_header(char *line);
 int		check_space(char *line);
 int		invalid_line(char *line);
+int		handle_map_char(t_data *d, int i, int j, int *count);
+int		check_door(t_data *d, int i, int j);
 
 #endif // CUB3D_H

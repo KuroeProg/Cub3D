@@ -6,44 +6,44 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:16:51 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/06/30 22:40:20 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/07/01 10:23:01 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	get_map(t_data *data, char *file_path) 
+static int	read_until_map_start(int fd, t_data *data, char **line)
 {
-	char	*line;
-	int		fd;
-	int		i;
+	*line = get_next_line(fd);
+	if (*line == NULL)
+		return (0);
+	while (*line && !check_header(*line))
+	{
+		while (check_space(*line))
+		{
+			free(*line);
+			*line = get_next_line(fd);
+		}
+		if (check_header(*line))
+			break ;
+		if (data->i < 6 && !fill_path_text(*line, data))
+		{
+			free(*line);
+			*line = NULL;
+			get_next_line(-1);
+			return (0);
+		}
+		free(*line);
+		*line = get_next_line(fd);
+	}
+	return (1);
+}
+
+static int	fill_map(t_data *data, int fd, char *line)
+{
+	int	i;
 
 	i = 0;
-	fd = open(file_path, O_RDONLY);
-	if (!fd || fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (close(fd), 0);
-	while (line && !check_header(line))
-	{
-		while (check_space(line))
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
-		if (check_header(line))
-			break ;
-		if (data->i < 6 && !fill_path_text(line, data))
-		{
-			free(line);
-			line = NULL;
-			get_next_line(-1);
-			return(close(fd), 0);
-		}
-		free(line);
-		line = get_next_line(fd);
-	}
 	while (line && i < data->map_height)
 	{
 		strcpy_cube(data->map[i], line, data->map_width);
@@ -53,6 +53,27 @@ int	get_map(t_data *data, char *file_path)
 	}
 	free(line);
 	data->map[i] = NULL;
+	return (1);
+}
+
+int	get_map(t_data *data, char *file_path)
+{
+	char	*line;
+	int		fd;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	if (!read_until_map_start(fd, data, &line))
+	{
+		close(fd);
+		return (0);
+	}
+	if (!fill_map(data, fd, line))
+	{
+		close(fd);
+		return (0);
+	}
 	close(fd);
 	return (1);
 }

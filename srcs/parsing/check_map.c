@@ -6,7 +6,7 @@
 /*   By: tbahin <tbahin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:45:08 by tbahin            #+#    #+#             */
-/*   Updated: 2025/06/25 18:39:45 by tbahin           ###   ########.fr       */
+/*   Updated: 2025/07/01 15:28:47 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	strcpy_cube(char *dest, const char *src, int size)
 		dest[i] = src[i];
 		i++;
 	}
-	while(i < size)
+	while (i < size)
 		dest[i++] = '\0';
 	dest[i] = '\0';
 }

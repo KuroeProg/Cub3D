@@ -64,6 +64,8 @@ void	strcpy_cube(char *dest, const char *src, int size)
 		dest[i] = src[i];
 		i++;
 	}
+	while(i < size)
+		dest[i++] = '\0';
 	dest[i] = '\0';
 }
 
